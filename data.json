@@ -1,0 +1,425 @@
+{
+  "_comment": "此文件由 Decap CMS 自动管理，也可手动编辑。修改后推送到 GitHub 仓库即可自动更新网站内容。",
+  "ui": {
+    "nav": [
+      { "label": "教育与实习经历", "href": "#experience" },
+      { "label": "我的公众号", "href": "#wechat" },
+      { "label": "学生工作与志愿服务", "href": "#volunteer-work" },
+      { "label": "获奖与荣誉", "href": "#awards" },
+      { "label": "作品陈列", "href": "#portfolio" },
+      { "label": "技能与资质", "href": "#skills" },
+      { "label": "联系方式", "href": "#contact" }
+    ],
+    "sections": {
+      "experience": { "label": "Education & Experience", "title": "教育与实习经历" },
+      "wechat": { "label": "WeChat Official Account", "title": "我的公众号" },
+      "volunteerWork": { "label": "Student Work & Volunteer", "title": "学生工作与志愿服务" },
+      "awards": { "label": "Awards & Honors", "title": "获奖与荣誉" },
+      "portfolio": { "label": "Selected Works", "title": "作品列表", "subtitle": "从国赛获奖作品到4.5W+阅读的公众号爆款，从学术发表到田野调查——按优先级排序：国家级 · 市级 · 校级 · 其他。" },
+      "skills": { "label": "Skills & Languages", "title": "技能与资质" },
+      "contact": { "label": "Get In Touch", "title": "联系我", "subtitle": "无论是合作邀约、实习机会，还是单纯的交流探讨，都欢迎联系我。" }
+    },
+    "buttons": {
+      "browsePortfolio": "查看作品集",
+      "downloadResume": "下载简历",
+      "downloadFullResume": "下载完整简历",
+      "followWechat": "关注公众号"
+    }
+  },
+  "profile": {
+    "name": "吴晗漠",
+    "nameEn": "Hammer Wu",
+    "title": "新闻学（国际传播）| 写作者 · 内容创作者 · 传播研究者",
+    "bio": "北京语言大学新闻学（国际传播）在读，19岁，准大三。深度报道实习记者，与同学合作的公众号「Jason 傑」主笔（产出4.5W+准爆款），科研助理。\n\n我相信文字的力量——从深度报道的特稿写作到学术研究的严谨论述，从公众号的通俗叙事到品牌传播的精准表达。致力于用扎实的调研与真诚的笔触，连接专业信息与公众理解。\n\n关注语言传播、文化涵化、性别话语、人类本能与地方性知识等学术议题，对跨学科语境下的媒介研究、社会学理论与哲学融合视域具有强烈探索热情。",
+    "avatar": "assets/uploads/avatar.jpg",
+    "resumePath": "https://acno9ibvtgk7.feishu.cn/docx/GHbKdULvUoBbARx8bTkcks0Onu5?from=from_copylink",
+    "portfolioLink": "https://acno9ibvtgk7.feishu.cn/docx/VKsndRdFVoC6Agx6oP8cVxTpnHg?from=from_copylink",
+    "baiduPanLink": "https://pan.baidu.com/s/1jlNt3h4jzVQSIuvecFWGGg",
+    "baiduPanCode": "5ar4"
+  },
+  "education": {
+    "school": "北京语言大学",
+    "degree": "本科",
+    "major": "新闻学（国际传播）",
+    "gpa": "3.6/4.0",
+    "rank": "前10%",
+    "graduation": "2028年6月（2024级，准大三）",
+    "courses": "传播学概论、社会学概论、媒介研究、数字新闻、跨文化传播、新闻采访与写作"
+  },
+  "internships": [
+    {
+      "company": "解放日报社「原点original」深度报道栏目",
+      "role": "实习记者（远程）",
+      "period": "2025.04 — 2025.06",
+      "description": "协助完成线上深度采访5次，参与特稿选题策划与评论撰写，完成稿件基础调校与事实核查，熟悉非虚构写作规范与深度报道叙事逻辑。独立完成音视频素材整理与字幕校对，具备基础的多媒体内容生产能力。",
+      "credential": ""
+    },
+    {
+      "company": "国家电力投资集团广东电力有限公司",
+      "role": "新锐训练营项目 · 宣传实习生（职能岗）",
+      "period": "2025.07 — 2025.08",
+      "description": "负责培训项目日常活动的影像记录与后期处理，撰写新员工培训心得报道并实时上报项目组，具备快速产出图文内容的能力。辅助完成集团外宣任务，包括「星主播」「营地直播间」与「智享课」等融媒体栏目策划，熟悉新媒体栏目策划与内容运营流程。",
+      "credential": ""
+    },
+    {
+      "company": "个人微信公众号「Jason 傑」（与同学合作）",
+      "role": "主笔",
+      "period": "2024.12 — 至今",
+      "description": "作为主笔写出过2篇2K+阅读以上文章，1篇4.5W+准爆款。",
+      "current": true,
+      "credential": ""
+    }
+  ],
+  "researchProjects": [
+    {
+      "company": "北京语言大学 国际政治与传播学院 读写教育研究中心",
+      "role": "「2025年蓝皮书编写计划」项目第七组成员",
+      "period": "2024.12 — 2025.04",
+      "description": "参与框架设计与文献综述撰写，聚焦校园图书馆空间功能与老年群体数字阅读行为研究，完成中英文文献检索与综述写作。负责数据采集与质性分析，运用半结构化访谈与内容分析法对老年阅读障碍进行编码梳理，具备NVivo基础编码与质性资料处理能力。成果发表于《社区文化》2025年10月增刊，为课题组核心执笔人之一。",
+      "credential": ""
+    },
+    {
+      "company": "北京语言大学第二届外交训练营",
+      "role": "小组课题主持人",
+      "period": "2024.11 — 2025.05",
+      "description": "独立主持课题「中欧绿色转型中的合作与博弈」，完成文献检索、政策文本分析与比较研究框架搭建，撰写研究报告1.5万字。运用话语分析法对中欧气候政策声明进行文本比对与议题框架提取，熟悉文献综述与批判性分析的基本操作。课题获评「优秀课题」（20项参选课题中排名前5），个人获评「优秀营员」。",
+      "credential": ""
+    },
+    {
+      "company": "北京语言大学2025寒假社会实践调研项目",
+      "role": "下乡文化勘察专项（永州女书文化研究）核心成员",
+      "period": "2025.01 — 2025.03",
+      "description": "承担全部采访方案设计、田野调查执行与访谈资料整理工作，完成深度访谈12人次，采集方言语音样本30余条，具备扎实的田野调查与质性研究实操经验。运用NVivo对访谈文本进行基础三级编码，提炼女书传承中的性别话语与地方性知识保护机制，熟悉扎根理论（Grounded Theory）的基础编码流程。成果获评校级二等奖（106支队伍中排名第5），研究报告被学校收录为优秀实践案例。",
+      "credential": ""
+    },
+    {
+      "company": "第二十届「挑战杯」全国大学生课外学术科技作品竞赛",
+      "role": "「青振京郊」揭榜挂帅专项核心成员（综述负责人）",
+      "period": "2025.03 — 2025.06",
+      "description": "参与京郊乡村振兴调研，负责问卷设计、数据清洗与可视化呈现，处理有效样本800余份，具备基础量化分析与学术图表制作能力。撰写数据分析章节与政策建议报告，熟悉学术报告的结构化写作与政策文本的规范表达。获北京市赛二等奖。",
+      "credential": ""
+    },
+    {
+      "company": "2026年北京语言大学青年教师课题计划",
+      "role": "「文明互鉴视域下首都高校大学生校园氛围感知、文化认同与心理适应的关系研究」课题组成员",
+      "period": "2026.05 — 至今",
+      "description": "参与跨文化心理适应与校园氛围感知的量化研究，协助问卷修订、数据收集与基础统计分析。",
+      "current": true,
+      "credential": ""
+    },
+    {
+      "company": "教育部 · 北京语言大学 语言文化国际传播联合研究院",
+      "role": "科研助理（本科）",
+      "period": "2026.05 — 至今",
+      "description": "协助所在课题组完成实验操作（脑电装置、结构化访谈），文献整理（外文前沿文献扒取与学术归档）。熟悉学术生产流程与规范。",
+      "current": true,
+      "credential": ""
+    },
+    {
+      "company": "香港大学2026年寒校（HKU·ICB）",
+      "role": "「大众传播与品牌营销」优秀学员",
+      "period": "2026.02",
+      "description": "完成寒校课程学习，获评优秀学员。",
+      "current": false,
+      "credential": ""
+    }
+  ],
+  "volunteerWork": [
+    {
+      "organization": "CBNN 2025 亚广联媒体产业人工智能交流论坛",
+      "role": "志愿者",
+      "period": "2025.04",
+      "description": "负责国际嘉宾接待与议程协调，保障亚太媒体-AI产业板块的会务执行。",
+      "current": false,
+      "credential": ""
+    },
+    {
+      "organization": "第七届媒介物质性论坛「媒介基础设施的去蔽」",
+      "role": "志愿者",
+      "period": "2026.05",
+      "description": "承担会场执行与分论坛协调，摄制影像资料，完成学者发言纪要整理及会议资料归档。",
+      "current": false,
+      "credential": ""
+    },
+    {
+      "organization": "北语「全球治理青年行」青年对话会",
+      "role": "与谈人",
+      "period": "2025.05",
+      "description": "以「行动-责任」为主题参与学术对话，熟悉学术论坛的议题设置与对话组织。",
+      "current": false,
+      "credential": ""
+    },
+    {
+      "organization": "北京语言大学系团委学生成长与发展中心",
+      "role": "干事",
+      "period": "2024.10 — 2025.09",
+      "description": "参与策划学院考保研经验交流会/就业经验分享会，学生活动（微纪录片大赛，趣味活动）5场，负责内容包括前期嘉宾对接、活动方案撰写与现场执行全流程，单场活动覆盖100余人次。",
+      "current": false,
+      "credential": ""
+    },
+    {
+      "organization": "北京语言大学校团委融媒体中心数码影像部",
+      "role": "部员",
+      "period": "2024.09 — 2025.07",
+      "description": "统筹视觉素材采集与影像制作，用图量部门第二，具备视觉内容策划与制作经验。",
+      "current": false,
+      "credential": ""
+    },
+    {
+      "organization": "北京语言大学「青言青语」校史馆",
+      "role": "讲解员",
+      "period": "2024.12 — 至今",
+      "description": "负责校史文化讲解与中外访客接待，锻炼公共表达与学术传播能力。",
+      "current": true,
+      "credential": ""
+    }
+  ],
+  "awards": [
+    {
+      "name": "第十八届全国大学生计算机设计大赛 · 国赛三等奖",
+      "role": "技术负责人 · 个人主创",
+      "date": "2025.07",
+      "level": "国家级",
+      "credential": ""
+    },
+    {
+      "name": "第二十届「挑战杯」全国大学生课外学术科技作品竞赛 · 北京市赛二等奖",
+      "role": "综述负责人",
+      "date": "2025.04",
+      "level": "市级",
+      "credential": ""
+    },
+    {
+      "name": "北京语言大学第二届外交训练营 · 优秀课题 & 优秀营员（5/20）",
+      "role": "项目负责人",
+      "date": "2025.05",
+      "level": "校级",
+      "credential": ""
+    },
+    {
+      "name": "北京语言大学「AI+」多语种传播能力大赛 · 校级三等奖",
+      "role": "影像负责人",
+      "date": "2025.06",
+      "level": "校级",
+      "credential": ""
+    },
+    {
+      "name": "北京语言大学2025寒假社会实践 · 校级二等奖（106支队伍第5）",
+      "role": "核心成员 · 田野调查执行",
+      "date": "2025.03",
+      "level": "校级",
+      "credential": ""
+    },
+    {
+      "name": "香港大学 HKU·ICB 2026寒校「大众传播与品牌营销」· 优秀学员",
+      "role": "学员",
+      "date": "2026.02",
+      "level": "其他",
+      "credential": ""
+    }
+  ],
+  "publications": [
+    {
+      "title": "个人主创作品 · 计算机设计大赛国赛三等奖",
+      "platform": "第十八届全国大学生计算机设计大赛",
+      "date": "2025.07",
+      "description": "作为技术负责人完成个人主创作品，从概念设计到技术实现全程主导，最终获得国赛三等奖。",
+      "image": "",
+      "tags": ["国赛三等奖", "技术负责人", "个人主创"],
+      "link": "",
+      "credential": "",
+      "type": "竞赛成果",
+      "level": "国家级",
+      "featured": true
+    },
+    {
+      "title": "综测又捅了大学生一刀",
+      "platform": "公众号「Jason 傑」",
+      "date": "2025.09",
+      "description": "主笔原创文章，45,144阅读 · 197评论 · 1,046赞 · 2,288在看 · 366喜欢。切中大学生综测评价体系痛点，引发广泛共鸣与讨论。",
+      "image": "",
+      "tags": ["4.5W+阅读", "准爆款", "主笔"],
+      "link": "",
+      "credential": "",
+      "type": "公众号写作",
+      "level": "其他",
+      "featured": true
+    },
+    {
+      "title": "「青振京郊」乡村振兴调研报告",
+      "platform": "第二十届「挑战杯」竞赛 · 北京市赛二等奖",
+      "date": "2025.04",
+      "description": "作为综述负责人参与京郊乡村振兴调研，负责问卷设计、数据清洗与可视化呈现，处理有效样本800余份，撰写数据分析章节与政策建议报告。",
+      "image": "",
+      "tags": ["北京市赛二等奖", "综述负责人", "乡村振兴"],
+      "link": "",
+      "credential": "",
+      "type": "学术竞赛",
+      "level": "市级",
+      "featured": true
+    },
+    {
+      "title": "校园图书馆空间功能与老年群体数字阅读行为研究",
+      "platform": "《社区文化》2025年10月增刊",
+      "date": "2025.04",
+      "description": "参与「2025年蓝皮书编写计划」，完成中英文文献检索与综述写作，负责数据采集与质性分析，运用半结构化访谈与内容分析法对老年阅读障碍进行编码梳理。成果发表于《社区文化》增刊，为课题组核心执笔人之一。",
+      "image": "",
+      "tags": ["学术发表", "蓝皮书", "质性研究"],
+      "link": "",
+      "credential": "",
+      "type": "学术发表",
+      "level": "校级",
+      "featured": true
+    },
+    {
+      "title": "去中心化时代文科生的出路",
+      "platform": "公众号「Jason 傑」",
+      "date": "2025.08",
+      "description": "主笔原创文章，3,199阅读 · 25评论 · 154赞 · 244在看。探讨文科生在技术变革中的定位与发展路径。",
+      "image": "",
+      "tags": ["3K+阅读", "主笔"],
+      "link": "",
+      "credential": "",
+      "type": "公众号写作",
+      "level": "其他",
+      "featured": true
+    },
+    {
+      "title": "中欧绿色转型中的合作与博弈 · 研究报告",
+      "platform": "北京语言大学第二届外交训练营 · 优秀课题",
+      "date": "2025.05",
+      "description": "独立主持课题，完成文献检索、政策文本分析与比较研究框架搭建，运用话语分析法对中欧气候政策声明进行文本比对与议题框架提取，撰写研究报告1.5万字。获评「优秀课题」（20项参选课题中排名前5），个人获评「优秀营员」。",
+      "image": "",
+      "tags": ["优秀课题", "独立主持", "1.5万字"],
+      "link": "",
+      "credential": "",
+      "type": "学术研究",
+      "level": "校级",
+      "featured": true
+    },
+    {
+      "title": "女书绝唱：永州田野调查手记",
+      "platform": "北京语言大学2025寒假社会实践 · 校级二等奖",
+      "date": "2025.03",
+      "description": "承担全部采访方案设计、田野调查执行与访谈资料整理，完成深度访谈12人次，采集方言语音样本30余条。运用NVivo进行三级编码，提炼女书传承中的性别话语与地方性知识保护机制。成果获评校级二等奖（106支队伍第5），研究报告被学校收录为优秀实践案例。",
+      "image": "",
+      "tags": ["校级二等奖", "田野调查", "NVivo编码"],
+      "link": "",
+      "credential": "",
+      "type": "田野调查",
+      "level": "校级",
+      "featured": true
+    },
+    {
+      "title": "新媒体技术赋能中国传统文化国际传播的创新模式及效应研究",
+      "platform": "北语第二届「中文国际传播」论坛 · 本科生论坛三等奖",
+      "date": "2025",
+      "description": "合作研究论文，探讨新媒体技术在中国传统文化国际传播中的创新应用与传播效应。",
+      "image": "",
+      "tags": ["论坛三等奖", "国际传播"],
+      "link": "",
+      "credential": "",
+      "type": "学术发表",
+      "level": "校级",
+      "featured": true
+    },
+    {
+      "title": "对话文具店老板",
+      "platform": "解放日报社「原点original」深度报道栏目",
+      "date": "2025.04 — 2025.06",
+      "description": "实习期间完成的非虚构写作作品，基于实地采访的特稿写作。",
+      "image": "",
+      "tags": ["非虚构写作", "实习成果"],
+      "link": "",
+      "credential": "",
+      "type": "深度报道",
+      "level": "其他",
+      "featured": true
+    },
+    {
+      "title": "《宝贝鱼环游颐和园》· AI多语种国际传播作品",
+      "platform": "北京语言大学「AI+」多语种传播能力大赛 · 校级三等奖",
+      "date": "2025.06",
+      "description": "作为影像负责人，运用AI技术创作多语种国际传播作品，探索AI赋能跨文化传播的新路径。",
+      "image": "",
+      "tags": ["校级三等奖", "AI创作", "影像负责人"],
+      "link": "",
+      "credential": "",
+      "type": "竞赛成果",
+      "level": "校级",
+      "featured": true
+    },
+    {
+      "title": "FloraFlow 工作流应用",
+      "platform": "全国大学生广告艺术大赛（大广赛）",
+      "date": "2026.06",
+      "description": "2026年6月参与大广赛时独立设计的工作流应用原型。访问地址：http://47.93.228.17/，用户名：<strong style='color:var(--blue)'>Sam</strong>，密码：<strong style='color:var(--blue)'>FloraFlow@2026</strong>。",
+      "image": "",
+      "tags": ["应用设计", "大广赛"],
+      "link": "http://47.93.228.17/",
+      "credential": "",
+      "type": "应用设计",
+      "level": "其他",
+      "featured": true
+    }
+  ],
+  "wechatOfficial": {
+    "name": "Jason 傑",
+    "description": "与同学合作的公众号，记录思考、分享见解。主笔产出1篇4.5W+准爆款、2篇2K+阅读文章，涵盖教育观察、社会评论与个人成长。",
+    "qrcode": "assets/uploads/wechat-qrcode.jpg",
+    "articles": [
+      {
+        "title": "综测又捅了大学生一刀（45,144阅读 · 1,046赞）",
+        "link": ""
+      },
+      {
+        "title": "去中心化时代文科生的出路（3,199阅读 · 154赞）",
+        "link": ""
+      },
+      {
+        "title": "大学的自由为什么让我们更不自由（1,904阅读 · 132赞）",
+        "link": ""
+      }
+    ]
+  },
+  "skills": [
+    "深度报道与非虚构写作",
+    "新媒体运营",
+    "学术研究与文献综述",
+    "质性研究（NVivo）",
+    "量化分析（SPSS）",
+    "数据可视化",
+    "视频拍摄与剪辑（剪映专业版）",
+    "摄影与视觉设计",
+    "舆情分析",
+    "网络数据抓取（Opencode、Media Crawler、Playwright）",
+    "Vibe coding",
+    "主题活动策划与执行",
+    "田野调查（访谈采访）",
+    "社交媒体运营",
+    "结构化表达与输出",
+    "人民网舆情分析师（在读·初级）"
+  ],
+  "languages": [
+    {
+      "name": "人民网舆情分析师",
+      "level": "初级（在读）",
+      "description": "通过人民网舆情研究院认证培训，系统掌握舆情监测平台操作、数据采集与分析方法论，具备舆情报告撰写与危机研判能力"
+    },
+    {
+      "name": "英语",
+      "level": "CET-4 575分",
+      "description": "具备良好的英文文献阅读与学术资料检索能力，可辅助外文哲学文本与学术前沿内容的整理、编译与二次处理"
+    }
+  ],
+  "contact": {
+    "wechat": "13926929230",
+    "phone": "13926929230",
+    "email": "3587378140@qq.com",
+    "emailGmail": "HammerWu0609@gmail.com",
+    "emailSchool": "202411580872@stu.blcu.edu.cn",
+    "github": "",
+    "linkedin": "",
+    "wechatOfficialLink": ""
+  }
+}

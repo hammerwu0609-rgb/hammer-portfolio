@@ -1,0 +1,412 @@
+# Decap CMS 配置文件 —— 定义后台所有可编辑字段
+# 官方文档：https://decapcms.org/docs/
+
+backend:
+  name: git-gateway
+  branch: main
+
+# 媒体文件上传配置
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+# 站点地址（部署后替换为实际地址）
+site_url: "https://你的站点地址.netlify.app"
+
+publish_mode: simple
+
+slug:
+  encoding: "unicode"
+  clean_accents: false
+
+# ============================================================
+# 内容集合配置
+# ============================================================
+collections:
+  - name: "portfolio"
+    label: "作品集内容"
+    files:
+      - file: "data.json"
+        label: "个人资料与作品"
+        name: "data"
+        fields:
+
+          # ===== 0. 网站界面配置（所有可交互文字）=====
+          - label: "网站界面文字"
+            name: "ui"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "导航栏"
+                name: "nav"
+                widget: "list"
+                allow_add: true
+                allow_delete: true
+                collapsed: false
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: "导航文字", name: "label", widget: "string" }
+                  - { label: "锚点链接", name: "href", widget: "string", hint: "如 #experience" }
+              - label: "各区块标题配置"
+                name: "sections"
+                widget: "object"
+                collapsed: false
+                fields:
+                  - label: "教育与实习经历"
+                    name: "experience"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "英文标签", name: "label", widget: "string" }
+                      - { label: "标题", name: "title", widget: "string" }
+                  - label: "我的公众号"
+                    name: "wechat"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "英文标签", name: "label", widget: "string" }
+                      - { label: "标题", name: "title", widget: "string" }
+                  - label: "学生工作与志愿活动"
+                    name: "volunteerWork"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "英文标签", name: "label", widget: "string" }
+                      - { label: "标题", name: "title", widget: "string" }
+                  - label: "获奖与荣誉"
+                    name: "awards"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "英文标签", name: "label", widget: "string" }
+                      - { label: "标题", name: "title", widget: "string" }
+                  - label: "作品集"
+                    name: "portfolio"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "英文标签", name: "label", widget: "string" }
+                      - { label: "标题", name: "title", widget: "string" }
+                      - { label: "副标题", name: "subtitle", widget: "text", required: false }
+                  - label: "技能与资质"
+                    name: "skills"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "英文标签", name: "label", widget: "string" }
+                      - { label: "标题", name: "title", widget: "string" }
+                  - label: "联系我"
+                    name: "contact"
+                    widget: "object"
+                    collapsed: true
+                    fields:
+                      - { label: "英文标签", name: "label", widget: "string" }
+                      - { label: "标题", name: "title", widget: "string" }
+                      - { label: "副标题", name: "subtitle", widget: "text", required: false }
+              - label: "按钮文字"
+                name: "buttons"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "浏览作品集", name: "browsePortfolio", widget: "string" }
+                  - { label: "下载简历（Hero）", name: "downloadResume", widget: "string" }
+                  - { label: "下载完整简历（联系区）", name: "downloadFullResume", widget: "string" }
+                  - { label: "关注公众号", name: "followWechat", widget: "string" }
+
+          # ===== 1. 个人资料 =====
+          - label: "个人资料"
+            name: "profile"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "中文姓名"
+                name: "name"
+                widget: "string"
+
+              - label: "英文名"
+                name: "nameEn"
+                widget: "string"
+                hint: "如：Hammer Wu"
+
+              - label: "定位标题"
+                name: "title"
+                widget: "string"
+                hint: "如：新闻学（国际传播）| 写作者 · 内容创作者 · 传播研究者"
+
+              - label: "个人简介"
+                name: "bio"
+                widget: "text"
+                hint: "首屏和关于页面的简介。换行用空行分隔成多段。"
+
+              - label: "头像"
+                name: "avatar"
+                widget: "image"
+                allow_multiple: false
+                required: false
+                hint: "建议 400x400 像素正方形照片，将自动裁为圆形"
+
+              - label: "简历 PDF"
+                name: "resumePath"
+                widget: "file"
+                required: false
+                hint: "上传你的简历 PDF，网站上的「下载简历」按钮将链接到此文件"
+
+              - label: "百度网盘链接（佐证材料）"
+                name: "baiduPanLink"
+                widget: "string"
+                required: false
+                hint: "用于分享相关佐证材料的百度网盘链接"
+
+              - label: "百度网盘提取码"
+                name: "baiduPanCode"
+                widget: "string"
+                required: false
+                hint: "网盘提取码"
+
+              - label: "作品列表外部链接"
+                name: "portfolioLink"
+                widget: "string"
+                required: false
+                hint: "点击「查看作品列表」按钮时跳转的外部链接，如：飞书文档、Notion 等"
+
+          # ===== 2. 教育背景 =====
+          - label: "教育背景"
+            name: "education"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "学校名称", name: "school", widget: "string" }
+              - { label: "学位", name: "degree", widget: "string", hint: "如：本科" }
+              - { label: "专业", name: "major", widget: "string", hint: "如：新闻学（国际传播）" }
+              - { label: "GPA", name: "gpa", widget: "string", hint: "如：3.6/4.0" }
+              - { label: "成绩排名", name: "rank", widget: "string", hint: "如：前10%" }
+              - { label: "预计毕业时间", name: "graduation", widget: "string", hint: "如：2028年6月（准大三）" }
+              - { label: "主修课程", name: "courses", widget: "string", hint: "用顿号分隔" }
+
+          # ===== 3. 实习经历 =====
+          - label: "实习经历"
+            name: "internships"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: true
+            summary: "{{fields.company}}"
+            fields:
+              - { label: "公司/机构名称", name: "company", widget: "string" }
+              - { label: "职位", name: "role", widget: "string", hint: "如：实习记者（远程）" }
+              - { label: "时间段", name: "period", widget: "string", hint: "如：2025.04 — 2025.06" }
+              - { label: "工作描述", name: "description", widget: "text" }
+              - { label: "当前在职", name: "current", widget: "boolean", default: false }
+              - label: "凭证链接（可选）"
+                name: "credential"
+                widget: "string"
+                required: false
+                hint: "上传到 GitHub 或网盘后，将文件链接粘贴于此。网站上将显示「查看凭证」按钮。"
+
+          # ===== 3.5 校内科研/项目经历 =====
+          - label: "校内科研与项目经历"
+            name: "researchProjects"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: true
+            summary: "{{fields.company}}"
+            fields:
+              - { label: "机构/项目名称", name: "company", widget: "string" }
+              - { label: "担任角色", name: "role", widget: "string", hint: "如：课题组成员" }
+              - { label: "时间段", name: "period", widget: "string", hint: "如：2024.12 — 2025.04" }
+              - { label: "项目描述", name: "description", widget: "text" }
+              - { label: "当前进行中", name: "current", widget: "boolean", default: false }
+              - label: "凭证链接（可选）"
+                name: "credential"
+                widget: "string"
+                required: false
+                hint: "上传佐证材料链接"
+
+          # ===== 3.6 学生工作与志愿服务 =====
+          - label: "学生工作与志愿活动"
+            name: "volunteerWork"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: true
+            summary: "{{fields.organization}}"
+            fields:
+              - { label: "组织/活动名称", name: "organization", widget: "string" }
+              - { label: "担任角色", name: "role", widget: "string" }
+              - { label: "时间段", name: "period", widget: "string" }
+              - { label: "活动描述", name: "description", widget: "text" }
+              - { label: "当前进行中", name: "current", widget: "boolean", default: false }
+              - label: "凭证链接（可选）"
+                name: "credential"
+                widget: "string"
+                required: false
+
+          # ===== 4. 获奖记录 =====
+          - label: "获奖记录"
+            name: "awards"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: true
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "奖项名称", name: "name", widget: "string" }
+              - { label: "担任角色", name: "role", widget: "string" }
+              - { label: "获奖时间", name: "date", widget: "string" }
+              - label: "级别"
+                name: "level"
+                widget: "select"
+                options:
+                  - { label: "国家级", value: "国家级" }
+                  - { label: "市级", value: "市级" }
+                  - { label: "校级", value: "校级" }
+                  - { label: "其他", value: "其他" }
+              - label: "凭证链接（可选）"
+                name: "credential"
+                widget: "string"
+                required: false
+                hint: "上传获奖证书 PDF 到 GitHub/网盘后粘贴链接"
+
+          # ===== 5. 作品集（核心）=====
+          - label: "作品集"
+            name: "publications"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - label: "作品标题"
+                name: "title"
+                widget: "string"
+
+              - label: "发布/竞赛平台"
+                name: "platform"
+                widget: "string"
+                hint: "如：第十八届全国大学生计算机设计大赛"
+
+              - label: "时间"
+                name: "date"
+                widget: "string"
+                hint: "如：2025.07"
+
+              - label: "作品描述"
+                name: "description"
+                widget: "text"
+                hint: "一两句话概括内容和成果"
+
+              - label: "封面图片（可选）"
+                name: "image"
+                widget: "image"
+                required: false
+                hint: "如有封面图、截图或作品照片，上传此处。建议 16:10 比例。"
+
+              - label: "标签"
+                name: "tags"
+                widget: "list"
+                allow_add: true
+                allow_delete: true
+                collapsed: false
+                field: { label: "标签", name: "tag", widget: "string" }
+                hint: "如：国赛三等奖、4.5W+阅读、田野调查"
+
+              - label: "外部链接（可选）"
+                name: "link"
+                widget: "string"
+                required: false
+                hint: "原文链接（公众号文章等），填入后整篇作品可点击跳转"
+
+              - label: "凭证链接（可选）"
+                name: "credential"
+                widget: "string"
+                required: false
+                hint: "【重要】将凭证文件（PDF/视频/图片）上传到你的 GitHub 仓库或网盘，然后把链接粘贴在这里。网站上会显示「凭证」按钮供访客查看。"
+
+              - label: "作品类型"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "竞赛成果", value: "竞赛成果" }
+                  - { label: "学术竞赛", value: "学术竞赛" }
+                  - { label: "学术研究", value: "学术研究" }
+                  - { label: "学术发表", value: "学术发表" }
+                  - { label: "学术分享", value: "学术分享" }
+                  - { label: "田野调查", value: "田野调查" }
+                  - { label: "深度报道", value: "深度报道" }
+                  - { label: "公众号写作", value: "公众号写作" }
+                  - { label: "其他", value: "其他" }
+
+              - label: "级别"
+                name: "level"
+                widget: "select"
+                options:
+                  - { label: "国家级", value: "国家级" }
+                  - { label: "市级", value: "市级" }
+                  - { label: "校级", value: "校级" }
+                  - { label: "其他", value: "其他" }
+                hint: "用于筛选和排序，国家级优先展示"
+
+              - { label: "置顶展示", name: "featured", widget: "boolean", default: true }
+
+          # ===== 6. 公众号信息 =====
+          - label: "公众号信息"
+            name: "wechatOfficial"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "公众号名称", name: "name", widget: "string" }
+              - { label: "公众号简介", name: "description", widget: "text" }
+              - label: "公众号二维码"
+                name: "qrcode"
+                widget: "image"
+                allow_multiple: false
+                required: false
+                hint: "上传公众号二维码图片"
+              - label: "代表文章"
+                name: "articles"
+                widget: "list"
+                allow_add: true
+                allow_delete: true
+                collapsed: false
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "文章标题", name: "title", widget: "string" }
+                  - { label: "文章链接", name: "link", widget: "string", required: false }
+
+          # ===== 7. 技能标签 =====
+          - label: "技能标签"
+            name: "skills"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            field: { label: "技能", name: "skill", widget: "string" }
+            hint: "如：深度报道与非虚构写作、人民网舆情分析师（初级）、NVivo 质性研究等"
+
+          # ===== 8. 语言能力 =====
+          - label: "语言能力"
+            name: "languages"
+            widget: "list"
+            allow_add: true
+            allow_delete: true
+            collapsed: false
+            summary: "{{fields.name}} — {{fields.level}}"
+            fields:
+              - { label: "语言名称", name: "name", widget: "string" }
+              - { label: "等级/分数", name: "level", widget: "string" }
+              - { label: "能力描述", name: "description", widget: "string" }
+
+          # ===== 9. 联系方式 =====
+          - label: "联系方式"
+            name: "contact"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "微信号", name: "wechat", widget: "string", required: false }
+              - { label: "手机号", name: "phone", widget: "string", required: false }
+              - { label: "QQ 邮箱", name: "email", widget: "string", required: false }
+              - { label: "Gmail 邮箱", name: "emailGmail", widget: "string", required: false }
+              - { label: "学校邮箱", name: "emailSchool", widget: "string", required: false }
+              - { label: "GitHub 链接", name: "github", widget: "string", required: false, hint: "留空则不显示" }
+              - { label: "LinkedIn 链接", name: "linkedin", widget: "string", required: false, hint: "留空则不显示" }
+              - { label: "公众号主页链接", name: "wechatOfficialLink", widget: "string", required: false }

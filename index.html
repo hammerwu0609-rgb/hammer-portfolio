@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>吴晗漠 Hammer Wu - 个人作品集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== 配色系统：蓝 / 紫 / 白 三色阶 ========== */
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-card: #171717;
+      --bg-card-hover: #1a1a1a;
+      --bg-elevated: #1c1c1c;
+      --text-primary: #ffffff;
+      --text-secondary: #d4d4d8;
+      --text-muted: #71717a;
+      --text-footer: #52525b;
+      --blue: #3b82f6;
+      --blue-light: rgba(59, 130, 246, 0.08);
+      --blue-border: rgba(59, 130, 246, 0.3);
+      --purple: #a855f7;
+      --purple-soft: #c084fc;
+      --purple-soft-light: rgba(192, 132, 252, 0.12);
+      --purple-soft-border: rgba(192, 132, 252, 0.35);
+      --purple-light: rgba(168, 85, 247, 0.08);
+      --purple-border: rgba(168, 85, 247, 0.3);
+      --border: #262626;
+      --border-light: #2e2e2e;
+      --line-divider: #1a1a1a;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-pill: 9999px;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--text-footer); border-radius: var(--radius-pill); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .fade-in-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .fade-in-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .fade-in-up-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .fade-in-up-delay-4 { animation-delay: 0.4s; opacity: 0; }
+    .fade-in-up-delay-5 { animation-delay: 0.5s; opacity: 0; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: var(--transition-slow); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes blurFadeIn {
+      from { opacity: 0; filter: blur(12px); transform: translateY(20px); }
+      to { opacity: 1; filter: blur(0); transform: translateY(0); }
+    }
+    .blur-fade-in { animation: blurFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .blur-fade-in-delay-1 { animation-delay: 0.15s; opacity: 0; }
+    .blur-fade-in-delay-2 { animation-delay: 0.3s; opacity: 0; }
+    .blur-fade-in-delay-3 { animation-delay: 0.45s; opacity: 0; }
+    .blur-fade-in-delay-4 { animation-delay: 0.6s; opacity: 0; }
+    .blur-fade-in-delay-5 { animation-delay: 0.75s; opacity: 0; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 40px; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: var(--transition);
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 17px; font-weight: 700; color: var(--blue); letter-spacing: -0.02em; white-space: nowrap; }
+    .nav-logo span { color: var(--purple); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a {
+      font-size: 12px; font-weight: 500; color: var(--text-muted);
+      transition: var(--transition); position: relative; white-space: nowrap;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--blue); }
+    .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1.5px; background: var(--purple); transition: width 0.3s ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1002; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-primary); transition: var(--transition); }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .mobile-menu {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 10, 10, 0.98); z-index: 1001;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 32px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .mobile-menu.active { opacity: 1; pointer-events: all; }
+    .mobile-menu a { font-size: 24px; font-weight: 600; color: var(--text-secondary); transition: var(--transition); }
+    .mobile-menu a:hover { color: var(--blue); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    section { padding: 90px 0; will-change: transform; }
+    section:last-of-type { border-bottom: none; }
+    .section-header { margin-bottom: 44px; }
+    .section-label { font-size: 11px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 14px; }
+    .section-title { font-size: 34px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2; }
+    .section-subtitle { font-size: 15px; color: var(--text-secondary); margin-top: 12px; line-height: 1.7; max-width: 640px; }
+    .portfolio-note { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
+    .section-divider { display: none !important; }
+
+    .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 72px; }
+    .hero-container { display: grid; grid-template-columns: 1fr auto; gap: 70px; align-items: center; width: 100%; }
+    .hero-name { font-size: 54px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 6px; color: var(--text-primary); }
+    .hero-name-en { font-size: 17px; font-weight: 400; color: var(--purple); margin-bottom: 16px; letter-spacing: 0.04em; }
+    .hero-title { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 22px; line-height: 1.5; }
+    .hero-bio { font-size: 15px; color: var(--text-secondary); max-width: 560px; line-height: 1.8; margin-bottom: 28px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+    .hero-meta-tag { font-size: 11px; color: var(--blue); background: var(--blue-light); border: 1px solid var(--blue-border); padding: 5px 14px; border-radius: var(--radius-pill); }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; font-size: 13px; font-weight: 600; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: var(--transition); font-family: inherit; }
+    .btn-primary { background: var(--purple-soft); color: #fff; border: 1px solid var(--purple-soft); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(192, 132, 252, 0.3); background: var(--purple); }
+    .btn-secondary { background: transparent; color: var(--purple-soft); border: 1px solid var(--purple-soft-border); }
+    .btn-secondary:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-soft-light); transform: translateY(-2px); }
+    .btn-credential { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); font-size: 12px; padding: 8px 16px; }
+    .btn-credential:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+    .hero-avatar-wrapper { display: flex; justify-content: center; position: relative; }
+    .hero-avatar { width: 180px; height: 180px; border-radius: var(--radius); object-fit: cover; border: 2px solid var(--purple-border); background: var(--bg-card); box-shadow: 0 0 30px rgba(168, 85, 247, 0.15), var(--shadow); transition: var(--transition); }
+    .hero-avatar:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(168, 85, 247, 0.25), var(--shadow-lg); }
+    .hero-avatar-placeholder { width: 180px; height: 180px; border-radius: var(--radius); background: var(--bg-card); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); }
+    .hero-avatar-placeholder svg { width: 52px; height: 52px; color: var(--text-muted); }
+
+    /* 头像周围动效粒子 */
+    .avatar-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+    .avatar-particle {
+      position: absolute;
+      top: 50%; left: 50%;
+      opacity: 0;
+      transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(0.4);
+      transition: opacity 0.4s ease;
+    }
+    .avatar-particle.circle { width: var(--size); height: var(--size); border-radius: 50%; }
+    .avatar-particle.diamond { width: var(--size); height: var(--size); border-radius: 1px; }
+    .avatar-particle.purple { background: var(--purple); box-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
+    .avatar-particle.blue { background: var(--blue); box-shadow: 0 0 10px rgba(59, 130, 246, 0.8); }
+
+    /* 向外扩散 */
+    .avatar-particle.pop {
+      animation: particleExpand 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes particleExpand {
+      0% { opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(0.4); }
+      100% { opacity: 0.6; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1); }
+    }
+
+    /* 收回 */
+    .avatar-particle.retract {
+      animation: particleRetract 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes particleRetract {
+      0% { opacity: 0.5; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1); }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(0.4); }
+    }
+
+    .edu-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 36px; transition: var(--transition); }
+    .edu-card:hover { border-color: var(--purple-border); }
+    .edu-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .edu-school { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .edu-badge { font-size: 10px; font-weight: 700; color: var(--blue); background: var(--blue-light); border: 1px solid var(--blue-border); padding: 4px 12px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.05em; }
+    .edu-detail { font-size: 13.5px; color: var(--text-secondary); line-height: 1.8; }
+    .edu-detail strong { color: var(--text-primary); font-weight: 600; }
+
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--purple), transparent); }
+    .timeline-item { position: relative; padding-bottom: 32px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -28px; top: 5px; width: 13px; height: 13px; border-radius: 50%; background: var(--purple); border: 3px solid var(--bg-primary); box-shadow: 0 0 0 1px var(--purple); }
+    .timeline-item.current .timeline-dot { background: var(--blue); box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--blue-light); }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 4px; }
+    .timeline-title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .timeline-period { font-size: 11px; color: var(--blue); font-weight: 600; white-space: nowrap; }
+    .timeline-subtitle { font-size: 13px; color: var(--blue); margin-bottom: 6px; font-weight: 500; }
+    .timeline-description { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    .sub-section-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; letter-spacing: 0.02em; }
+
+    .wechat-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: start; }
+    .wechat-section:hover { border-color: var(--purple-border); }
+    .wechat-qrcode-wrapper { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .wechat-qrcode { width: 150px; height: 150px; border-radius: var(--radius-sm); object-fit: cover; background: #fff; padding: 4px; border: 5px solid var(--purple-border); }
+    .wechat-qrcode-placeholder { width: 150px; height: 150px; border-radius: var(--radius-sm); background: var(--bg-elevated); border: 2px dashed var(--border-light); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--text-muted); font-size: 12px; }
+    .wechat-qrcode-label { font-size: 11px; color: var(--purple); text-align: center; font-weight: 500; }
+    .wechat-info-name { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+    .wechat-info-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 18px; }
+    .wechat-articles-title { font-size: 10px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+    .wechat-article-list { display: flex; flex-direction: column; gap: 6px; }
+    .wechat-article-item { display: flex; align-items: center; gap: 8px; padding: 9px 13px; background: var(--bg-elevated); border-radius: var(--radius-sm); font-size: 13px; color: var(--text-secondary); transition: var(--transition); border: 1px solid transparent; }
+    .wechat-article-item:hover { border-color: var(--blue-border); color: var(--blue); }
+    .wechat-article-item svg { flex-shrink: 0; color: var(--blue); }
+
+    .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .award-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px 22px; transition: var(--transition); position: relative; }
+    .award-item:hover { border-color: var(--blue-border); background: var(--blue-light); }
+    .award-level-badge { position: absolute; top: 12px; right: 12px; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: var(--radius-pill); }
+    .award-level-badge.national { color: var(--blue); background: var(--blue-light); border: 1px solid var(--blue-border); }
+    .award-level-badge.city { color: var(--blue); background: var(--blue-light); border: 1px solid var(--blue-border); }
+    .award-level-badge.school { color: var(--purple); background: var(--purple-light); border: 1px solid var(--purple-border); }
+    .award-level-badge.other { color: var(--text-muted); background: var(--bg-elevated); border: 1px solid var(--border); }
+    .award-name { font-size: 14px; font-weight: 600; margin-bottom: 6px; line-height: 1.5; padding-right: 50px; }
+    .award-meta { font-size: 11px; color: var(--text-muted); }
+    .award-meta span { color: var(--purple); font-weight: 600; }
+
+    .portfolio-filters { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
+    .portfolio-filter { padding: 7px 16px; font-size: 12px; font-weight: 500; color: var(--text-muted); background: transparent; border: 1px solid var(--border); border-radius: var(--radius-pill); cursor: pointer; transition: var(--transition); font-family: inherit; }
+    .portfolio-filter:hover { border-color: var(--purple-border); color: var(--purple); }
+    .portfolio-filter.active { background: var(--blue-light); border-color: var(--blue-border); color: var(--blue); }
+    .portfolio-list { display: flex; flex-direction: column; gap: 16px; }
+    .portfolio-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: var(--transition); }
+    .portfolio-item:hover { border-color: var(--purple-border); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); }
+    .portfolio-item:hover .portfolio-body { transform: translateY(-2px); }
+    .portfolio-body { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .portfolio-item.has-image .portfolio-body { display: grid; grid-template-columns: 220px 1fr; }
+    .portfolio-image-wrapper { aspect-ratio: 16/10; background: var(--bg-elevated); overflow: hidden; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); }
+    .portfolio-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .portfolio-item:hover .portfolio-image { transform: scale(1.04); }
+    .portfolio-image-placeholder { color: var(--text-footer); }
+    .portfolio-image-placeholder svg { width: 40px; height: 40px; }
+    .portfolio-content { padding: 24px 28px; }
+    .portfolio-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 8px; }
+    .portfolio-title { font-size: 17px; font-weight: 600; color: var(--text-primary); line-height: 1.4; flex: 1; }
+    .portfolio-item.has-link .portfolio-title { color: var(--blue); }
+    .portfolio-date { font-size: 11px; color: var(--blue); white-space: nowrap; font-weight: 600; }
+    .portfolio-platform { font-size: 12px; color: var(--purple); margin-bottom: 8px; font-weight: 500; }
+    .portfolio-description { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; }
+    .portfolio-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .portfolio-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .portfolio-tag { font-size: 10px; font-weight: 700; color: var(--blue); background: var(--blue-light); border: 1px solid var(--blue-border); padding: 3px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.05em; }
+    .portfolio-tag.purple { color: var(--purple); background: var(--purple-light); border-color: var(--purple-border); }
+    .portfolio-actions { display: flex; gap: 10px; align-items: center; }
+    .portfolio-link-hint { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; transition: var(--transition); }
+    .portfolio-item:hover .portfolio-link-hint { color: var(--blue); }
+
+    .skills-section { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+    .skills-title { font-size: 10px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
+    .skills-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag { background: var(--bg-card); color: var(--text-secondary); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; border: 1px solid var(--border); transition: var(--transition); }
+    .skill-tag:hover { border-color: var(--purple-border); background: var(--purple-light); color: var(--purple); }
+    .lang-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 8px; transition: var(--transition); }
+    .lang-item:hover { border-color: var(--blue-border); }
+    .lang-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+    .lang-level { font-size: 12px; color: var(--blue); font-weight: 600; margin-bottom: 3px; }
+    .lang-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 36px; }
+    .contact-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: var(--transition); }
+    .contact-card:hover { border-color: var(--blue-border); }
+    .contact-label { font-size: 10px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .contact-value { font-size: 14px; font-weight: 600; color: var(--text-primary); word-break: break-all; }
+    .contact-value a { color: var(--blue); transition: var(--transition); }
+    .contact-value a:hover { color: var(--purple); }
+    .contact-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+    .contact-actions { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+
+    .footer { padding: 36px 0; border-top: 1px solid var(--border); text-align: center; }
+    .footer-text { font-size: 12px; color: var(--text-footer); }
+    .back-to-top { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; transition: var(--transition); }
+    .back-to-top:hover { background: var(--purple); border-color: var(--purple); color: #fff; }
+    .back-to-top svg { width: 16px; height: 16px; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .container { padding: 0 20px; }
+      section { padding: 56px 0; }
+      .hero-container { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+      .hero-name { font-size: 38px; }
+      .hero-name-en { font-size: 15px; }
+      .hero-title { font-size: 14px; }
+      .hero-bio { font-size: 14px; margin: 0 auto 24px; }
+      .hero-meta { justify-content: center; }
+      .hero-cta { justify-content: center; }
+      .hero-avatar, .hero-avatar-placeholder { width: 150px; height: 150px; }
+      .section-title { font-size: 26px; }
+      .portfolio-item.has-image .portfolio-body { grid-template-columns: 1fr; }
+      .portfolio-image-wrapper { aspect-ratio: 16/9; border-right: none; border-bottom: 1px solid var(--border); }
+      .portfolio-content { padding: 18px; }
+      .portfolio-header { flex-direction: column; gap: 4px; }
+      .wechat-section { grid-template-columns: 1fr; text-align: center; padding: 24px; }
+      .wechat-qrcode-wrapper { margin: 0 auto; }
+      .awards-grid { grid-template-columns: 1fr; }
+      .skills-section { grid-template-columns: 1fr; gap: 28px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .edu-card { padding: 22px; }
+      .timeline { padding-left: 24px; }
+      .timeline-dot { left: -24px; width: 11px; height: 11px; }
+      .footer { flex-direction: column; gap: 14px; text-align: center; }
+      .sub-section-title { font-size: 13px; }
+    }
+    @media (max-width: 1024px) {
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 11px; }
+    }
+    .hidden { display: none !important; }
+
+    /* ============================================================
+       ===== 角色设定：增量美化系统 =====
+       ============================================================ */
+
+    /* 1. 深空渐变背景层 */
+    body {
+      background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0f0f1a 30%, #0a0a0a 60%, #000000 100%);
+      background-attachment: fixed;
+    }
+
+    /* 2. 抽象直线 Canvas 层 */
+    #bg-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* 3. 噪点纹理层 */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.018;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* 4. 分区背景微调：带极淡蓝紫色调 */
+    .edu-card,
+    .wechat-section,
+    .award-item,
+    .contact-card,
+    .lang-item,
+    .portfolio-item {
+      background: #141419;
+      border-color: rgba(255,255,255,0.035);
+    }
+
+    .edu-card:hover,
+    .wechat-section:hover,
+    .award-item:hover,
+    .contact-card:hover,
+    .lang-item:hover {
+      border-color: rgba(192,132,252,0.2);
+      box-shadow: 0 0 30px rgba(168,85,247,0.06);
+    }
+
+    /* 5. 标题符号系统 */
+    .section-symbol {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+      font-size: 22px;
+      line-height: 1;
+      opacity: 0;
+      transform: translateY(8px) scale(0.9);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible .section-symbol {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* 6. [已移除] 渐变分割线 */
+
+    /* 7. 卡片 hover 增强 */
+    .portfolio-item:hover {
+      border-color: rgba(192,132,252,0.25);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(168,85,247,0.06);
+    }
+
+    /* 8. 技能标签 hover 增强 */
+    .skill-tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(168,85,247,0.15);
+    }
+
+    /* 9. 磁吸按钮 */
+    .btn-magnetic {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 10. 自定义光标 */
+    .custom-cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--blue);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.15s ease, height 0.15s ease, background 0.15s ease, border 0.15s ease;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+
+    .custom-cursor.hover {
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      border: 2px solid var(--blue);
+    }
+
+    /* 11. 加载 blur 增强（Hero） */
+    @keyframes blurFadeInEnhanced {
+      from { opacity: 0; filter: blur(8px); transform: translateY(20px); }
+      to { opacity: 1; filter: blur(0); transform: translateY(0); }
+    }
+
+    /* 12. 减少动效支持 */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .custom-cursor,
+      #bg-lines {
+        display: none !important;
+      }
+      body {
+        background: var(--bg-primary);
+      }
+      body::before {
+        display: none;
+      }
+    }
+
+    /* 13. 移动端适配 */
+    @media (max-width: 768px) {
+      .custom-cursor { display: none !important; }
+      body { cursor: auto !important; }
+      .section-symbol { font-size: 18px; margin-right: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="navbar">
+    <a href="#" class="nav-logo" id="nav-logo">吴晗漠 <span>/</span> Hammer</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#experience">教育与实习经历</a></li>
+      <li><a href="#wechat">我的公众号</a></li>
+      <li><a href="#volunteer-work">学生工作与志愿服务</a></li>
+      <li><a href="#awards">获奖与荣誉</a></li>
+      <li><a href="#portfolio">作品陈列</a></li>
+      <li><a href="#skills">技能与资质</a></li>
+      <li><a href="#contact">联系方式</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#experience">教育与实习经历</a><a href="#wechat">我的公众号</a>
+    <a href="#volunteer-work">学生工作与志愿服务</a><a href="#awards">获奖与荣誉</a>
+    <a href="#portfolio">作品陈列</a><a href="#skills">技能与资质</a><a href="#contact">联系方式</a>
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="hero-name blur-fade-in" id="hero-name">吴晗漠</h1>
+        <p class="hero-name-en blur-fade-in blur-fade-in-delay-1" id="hero-name-en">Hammer Wu</p>
+        <p class="hero-title blur-fade-in blur-fade-in-delay-2" id="hero-title">新闻学（国际传播）| 写作者 · 内容创作者 · 传播研究者</p>
+        <p class="hero-bio blur-fade-in blur-fade-in-delay-3" id="hero-bio">北京语言大学新闻学（国际传播）在读，19岁，准大三。深度报道实习记者，与同学合作的公众号主笔，科研助理。</p>
+        <div class="hero-meta blur-fade-in blur-fade-in-delay-4" id="hero-meta">
+          <span class="hero-meta-tag">北语 · 新闻学</span><span class="hero-meta-tag">GPA 3.6/4.0</span><span class="hero-meta-tag">前10%</span>
+        </div>
+        <div class="hero-cta fade-in-up fade-in-up-delay-5">
+          <a href="https://acno9ibvtgk7.feishu.cn/docx/VKsndRdFVoC6Agx6oP8cVxTpnHg?from=from_copylink" class="btn btn-primary" id="hero-portfolio-btn" target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/></svg>
+            浏览作品集
+          </a>
+          <a href="https://acno9ibvtgk7.feishu.cn/docx/GHbKdULvUoBbARx8bTkcks0Onu5?from=from_copylink" class="btn btn-secondary" id="hero-resume-btn" target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            下载简历
+          </a>
+        </div>
+      </div>
+      <div class="hero-avatar-wrapper fade-in-up fade-in-up-delay-4" id="hero-avatar-container">
+        <div class="avatar-particles" id="avatar-particles"></div>
+        <div class="hero-avatar-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience" id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label" id="experience-label">Education & Experience</p>
+        <h2 class="section-title" id="experience-title">教育与实习经历</h2>
+      </div>
+      <div class="edu-card reveal" id="education-card">
+        <div class="edu-header">
+          <div>
+            <div class="edu-school" id="edu-school">北京语言大学</div>
+            <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;" id="edu-major">新闻学（国际传播）· 本科</div>
+          </div>
+          <span class="edu-badge" id="edu-badge">GPA 3.6/4.0 · 前10%</span>
+        </div>
+        <div class="edu-detail" id="edu-detail"></div>
+      </div>
+      <p class="sub-section-title reveal">实习经历</p>
+      <div class="timeline reveal" id="internships-timeline"></div>
+      <p class="sub-section-title reveal">在校科研与项目经历</p>
+      <div class="timeline reveal" id="research-timeline"></div>
+    </div>
+  </section>
+
+  <section class="wechat" id="wechat">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label" id="wechat-label">WeChat Official Account</p>
+        <h2 class="section-title" id="wechat-title">我的公众号</h2>
+      </div>
+      <div class="wechat-section reveal" id="wechat-section">
+        <div class="wechat-qrcode-wrapper">
+          <div class="wechat-qrcode-placeholder" id="wechat-qrcode-container">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            <span>公众号二维码</span>
+          </div>
+          <p class="wechat-qrcode-label">扫码关注</p>
+        </div>
+        <div class="wechat-info">
+          <h3 class="wechat-info-name" id="wechat-name">Jason 傑</h3>
+          <p class="wechat-info-desc" id="wechat-desc">与同学合作的公众号，记录思考、分享见解。</p>
+          <p class="wechat-articles-title">代表文章</p>
+          <div class="wechat-article-list" id="wechat-articles"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="volunteer-work" id="volunteer-work">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label" id="volunteer-work-label">Student Work & Volunteer</p>
+        <h2 class="section-title" id="volunteer-work-title">学生工作与志愿服务</h2>
+      </div>
+      <div class="timeline reveal" id="volunteer-timeline"></div>
+    </div>
+  </section>
+
+  <section class="awards" id="awards">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label" id="awards-label">Awards & Honors</p>
+        <h2 class="section-title" id="awards-title">获奖与荣誉</h2>
+      </div>
+      <div class="awards-grid reveal" id="awards-grid"></div>
+    </div>
+  </section>
+
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label" id="portfolio-label">Selected Works</p>
+        <h2 class="section-title" id="portfolio-title">作品集</h2>
+        <p class="section-subtitle" id="portfolio-subtitle">从国赛获奖作品到4.5W+阅读的公众号爆款，从学术发表到田野调查——按优先级排序：国家级 · 市级 · 校级 · 其他。</p>
+        <p class="portfolio-note" id="portfolio-note">该处内容主要作陈列用途，查看相应的作品详情请点击作品集访问链接。</p>
+      </div>
+      <div class="portfolio-filters reveal" id="portfolio-filters">
+        <button class="portfolio-filter active" data-filter="all">全部</button>
+        <button class="portfolio-filter" data-filter="国家级">国家级</button>
+        <button class="portfolio-filter" data-filter="市级">市级</button>
+        <button class="portfolio-filter" data-filter="校级">校级</button>
+        <button class="portfolio-filter" data-filter="公众号写作">公众号</button>
+        <button class="portfolio-filter" data-filter="学术发表">学术发表</button>
+        <button class="portfolio-filter" data-filter="田野调查">田野调查</button>
+        <button class="portfolio-filter" data-filter="应用设计">应用设计</button>
+      </div>
+      <div class="portfolio-list reveal" id="portfolio-list"></div>
+    </div>
+  </section>
+
+  <section class="skills" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label" id="skills-label">Skills & Languages</p>
+        <h2 class="section-title" id="skills-title">技能与资质</h2>
+      </div>
+      <div class="skills-section reveal">
+        <div>
+          <p class="skills-title">专业技能</p>
+          <div class="skills-cloud" id="skills-cloud"></div>
+        </div>
+        <div>
+          <p class="skills-title">语言能力与专业资质</p>
+          <div id="languages-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label" id="contact-label">Get In Touch</p>
+        <h2 class="section-title" id="contact-title">联系我</h2>
+        <p class="section-subtitle" id="contact-subtitle">无论是合作邀约、实习机会，还是单纯的交流探讨，都欢迎联系我。</p>
+      </div>
+      <div class="contact-grid reveal" id="contact-grid"></div>
+      <div class="contact-actions reveal">
+        <a href="https://acno9ibvtgk7.feishu.cn/docx/GHbKdULvUoBbARx8bTkcks0Onu5?from=from_copylink" class="btn btn-primary" id="contact-resume-btn" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          下载完整简历
+        </a>
+        <a href="#wechat" class="btn btn-secondary" id="contact-wechat-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          关注公众号
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer container">
+    <p class="footer-text" id="footer-text">吴晗漠 Hammer Wu. All rights reserved.</p>
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+  </footer>
+
+<script>
+const defaultData = {
+  ui: {
+    nav: [
+      { label: "教育与实习经历", href: "#experience" },
+      { label: "我的公众号", href: "#wechat" },
+      { label: "学生工作与志愿服务", href: "#volunteer-work" },
+      { label: "获奖与荣誉", href: "#awards" },
+      { label: "作品陈列", href: "#portfolio" },
+      { label: "技能与资质", href: "#skills" },
+      { label: "联系方式", href: "#contact" }
+    ],
+    sections: {
+      experience: { label: "Education & Experience", title: "教育与实习经历" },
+      wechat: { label: "WeChat Official Account", title: "我的公众号" },
+      volunteerWork: { label: "Student Work & Volunteer", title: "学生工作与志愿服务" },
+      awards: { label: "Awards & Honors", title: "获奖与荣誉" },
+      portfolio: { label: "Selected Works", title: "作品列表", subtitle: "从国赛获奖作品到4.5W+阅读的公众号爆款，从学术发表到田野调查——按优先级排序：国家级 · 市级 · 校级 · 其他。" },
+      skills: { label: "Skills & Languages", title: "技能与资质" },
+      contact: { label: "Get In Touch", title: "联系我", subtitle: "无论是合作邀约、实习机会，还是单纯的交流探讨，都欢迎联系我。" }
+    },
+    buttons: {
+      browsePortfolio: "查看作品集",
+      downloadResume: "下载简历",
+      downloadFullResume: "下载完整简历",
+      followWechat: "关注公众号"
+    }
+  },
+  profile: {
+    name: "吴晗漠", nameEn: "Hammer Wu",
+    title: "新闻学（国际传播）| 写作者 · 内容创作者 · 传播研究者",
+    bio: "👋 各位老师好，我叫吴晗漠（often called Hammer），一名靠🔥热情驱动的准大三传播学人。我喜欢在🌾田野与📖文本之间来回穿梭，对🤖智能传播、内容生产、新质媒介等field有着浓厚兴趣。同时作为一名内容创作者，我热衷于观察和分析 AI在现代生产生活中如何重塑社会科学的叙事逻辑与知识生产范式，也因此在日常实践中积极学习与尝试各种各样的新旧工具与方法——🎬从内容影像的制作与处理到💻Vibe coding——🌍希冀用它们回应真实世界的复杂议题，亦或者纯粹为了✍️记录与表达。",
+    avatar: "assets/uploads/avatar.jpg", resumePath: "https://acno9ibvtgk7.feishu.cn/docx/GHbKdULvUoBbARx8bTkcks0Onu5?from=from_copylink", portfolioLink: "https://acno9ibvtgk7.feishu.cn/docx/VKsndRdFVoC6Agx6oP8cVxTpnHg?from=from_copylink",
+    baiduPanLink: "", baiduPanCode: ""
+  },
+  education: {
+    school: "北京语言大学", degree: "本科", major: "新闻学（国际传播）",
+    gpa: "3.6/4.0", rank: "前10%", graduation: "2028年6月（2024级，准大三）",
+    courses: "传播学概论、社会学概论、媒介研究、数字新闻、跨文化传播、新闻采访与写作"
+  },
+  internships: [
+    { company: "解放日报社「原点original」深度报道栏目", role: "实习记者（远程）", period: "2025.04 — 2025.06", description: "协助完成线上深度采访5次，参与特稿选题策划与评论撰写，完成稿件基础调校与事实核查，熟悉非虚构写作规范与深度报道叙事逻辑。独立完成音视频素材整理与字幕校对，具备基础的多媒体内容生产能力。", credential: "" },
+    { company: "国家电力投资集团广东电力有限公司", role: "新锐训练营项目 · 宣传实习生（职能岗）", period: "2025.07 — 2025.08", description: "负责培训项目日常活动的影像记录与后期处理，撰写新员工培训心得报道并实时上报项目组，具备快速产出图文内容的能力。辅助完成集团外宣任务，包括「星主播」「营地直播间」与「智享课」等融媒体栏目策划，熟悉新媒体栏目策划与内容运营流程。", credential: "" },
+    { company: "个人微信公众号「Jason 傑」（与同学合作）", role: "主笔", period: "2024.12 — 至今", description: "作为主笔写出过2篇2K+阅读以上文章，1篇4.5W+准爆款。", current: true, credential: "" }
+  ],
+  researchProjects: [
+    { company: "北京语言大学 国际政治与传播学院 读写教育研究中心", role: "「2025年蓝皮书编写计划」项目第七组成员", period: "2024.12 — 2025.04", description: "参与框架设计与文献综述撰写，聚焦校园图书馆空间功能与老年群体数字阅读行为研究，完成中英文文献检索与综述写作。负责数据采集与质性分析，运用半结构化访谈与内容分析法对老年阅读障碍进行编码梳理，具备NVivo基础编码与质性资料处理能力。成果发表于《社区文化》2025年10月增刊，为课题组核心执笔人之一。", credential: "" },
+    { company: "北京语言大学第二届外交训练营", role: "小组课题主持人", period: "2024.11 — 2025.05", description: "独立主持课题「中欧绿色转型中的合作与博弈」，完成文献检索、政策文本分析与比较研究框架搭建，撰写研究报告1.5万字。运用话语分析法对中欧气候政策声明进行文本比对与议题框架提取，熟悉文献综述与批判性分析的基本操作。课题获评「优秀课题」（20项参选课题中排名前5），个人获评「优秀营员」。", credential: "" },
+    { company: "北京语言大学2025寒假社会实践调研项目", role: "下乡文化勘察专项（永州女书文化研究）核心成员", period: "2025.01 — 2025.03", description: "承担全部采访方案设计、田野调查执行与访谈资料整理工作，完成深度访谈12人次，采集方言语音样本30余条，具备扎实的田野调查与质性研究实操经验。运用NVivo对访谈文本进行基础三级编码，提炼女书传承中的性别话语与地方性知识保护机制，熟悉扎根理论（Grounded Theory）的基础编码流程。成果获评校级二等奖（106支队伍中排名第5），研究报告被学校收录为优秀实践案例。", credential: "" },
+    { company: "第二十届「挑战杯」全国大学生课外学术科技作品竞赛", role: "「青振京郊」揭榜挂帅专项核心成员（综述负责人）", period: "2025.03 — 2025.06", description: "参与京郊乡村振兴调研，负责问卷设计、数据清洗与可视化呈现，处理有效样本800余份，具备基础量化分析与学术图表制作能力。撰写数据分析章节与政策建议报告，熟悉学术报告的结构化写作与政策文本的规范表达。获北京市赛二等奖。", credential: "" },
+    { company: "2026年北京语言大学青年教师课题计划", role: "「文明互鉴视域下首都高校大学生校园氛围感知、文化认同与心理适应的关系研究」课题组成员", period: "2026.05 — 至今", description: "参与跨文化心理适应与校园氛围感知的量化研究，协助问卷修订、数据收集与基础统计分析。", current: true, credential: "" },
+    { company: "教育部 · 北京语言大学 语言文化国际传播联合研究院", role: "科研助理（本科）", period: "2026.05 — 至今", description: "协助所在课题组完成实验操作（脑电装置、结构化访谈），文献整理（外文前沿文献扒取与学术归档）。熟悉学术生产流程与规范。", current: true, credential: "" },
+    { company: "香港大学2026年寒校（HKU·ICB）", role: "「大众传播与品牌营销」优秀学员", period: "2026.02", description: "完成寒校课程学习，获评优秀学员。", current: false, credential: "" }
+  ],
+  volunteerWork: [
+    { organization: "CBNN 2025 亚广联媒体产业人工智能交流论坛", role: "志愿者", period: "2025.04", description: "负责国际嘉宾接待与议程协调，保障亚太媒体-AI产业板块的会务执行。", current: false, credential: "" },
+    { organization: "第七届媒介物质性论坛「媒介基础设施的去蔽」", role: "志愿者", period: "2026.05", description: "承担会场执行与分论坛协调，摄制影像资料，完成学者发言纪要整理及会议资料归档。", current: false, credential: "" },
+    { organization: "北语「全球治理青年行」青年对话会", role: "与谈人", period: "2025.05", description: "以「行动-责任」为主题参与学术对话，熟悉学术论坛的议题设置与对话组织。", current: false, credential: "" },
+    { organization: "北京语言大学系团委学生成长与发展中心", role: "干事", period: "2024.10 — 2025.09", description: "参与策划学院考保研经验交流会/就业经验分享会，学生活动（微纪录片大赛，趣味活动）5场，负责内容包括前期嘉宾对接、活动方案撰写与现场执行全流程，单场活动覆盖100余人次。", current: false, credential: "" },
+    { organization: "北京语言大学校团委融媒体中心数码影像部", role: "部员", period: "2024.09 — 2025.07", description: "统筹视觉素材采集与影像制作，用图量部门第二，具备视觉内容策划与制作经验。", current: false, credential: "" },
+    { organization: "北京语言大学「青言青语」校史馆", role: "讲解员", period: "2024.12 — 至今", description: "负责校史文化讲解与中外访客接待，锻炼公共表达与学术传播能力。", current: true, credential: "" }
+  ],
+  awards: [
+    { name: "第十八届全国大学生计算机设计大赛 · 国赛三等奖", role: "技术负责人 · 个人主创", date: "2025.07", level: "国家级", credential: "" },
+    { name: "第二十届「挑战杯」全国大学生课外学术科技作品竞赛 · 北京市赛二等奖", role: "综述负责人", date: "2025.04", level: "市级", credential: "" },
+    { name: "北京语言大学第二届外交训练营 · 优秀课题 & 优秀营员（5/20）", role: "项目负责人", date: "2025.05", level: "校级", credential: "" },
+    { name: "北京语言大学「AI+」多语种传播能力大赛 · 校级三等奖", role: "影像负责人", date: "2025.06", level: "校级", credential: "" },
+    { name: "北京语言大学2025寒假社会实践 · 校级二等奖（106支队伍第5）", role: "核心成员 · 田野调查执行", date: "2025.03", level: "校级", credential: "" },
+    { name: "香港大学 HKU·ICB 2026寒校「大众传播与品牌营销」· 优秀学员", role: "学员", date: "2026.02", level: "其他", credential: "" }
+  ],
+  publications: [
+    { title: "个人主创作品 · 计算机设计大赛国赛三等奖", platform: "第十八届全国大学生计算机设计大赛", date: "2025.07", description: "作为技术负责人完成个人主创作品，从概念设计到技术实现全程主导，最终获得国赛三等奖。", image: "", tags: ["国赛三等奖", "技术负责人", "个人主创"], link: "", credential: "", type: "竞赛成果", level: "国家级", featured: true },
+    { title: "综测又捅了大学生一刀", platform: "公众号「Jason 傑」", date: "2025.09", description: "主笔原创文章，45,144阅读 · 197评论 · 1,046赞 · 2,288在看 · 366喜欢。切中大学生综测评价体系痛点，引发广泛共鸣与讨论。", image: "", tags: ["4.5W+阅读", "准爆款", "主笔"], link: "", credential: "", type: "公众号写作", level: "其他", featured: true },
+    { title: "「青振京郊」乡村振兴调研报告", platform: "第二十届「挑战杯」竞赛 · 北京市赛二等奖", date: "2025.04", description: "作为综述负责人参与京郊乡村振兴调研，负责问卷设计、数据清洗与可视化呈现，处理有效样本800余份，撰写数据分析章节与政策建议报告。", image: "", tags: ["北京市赛二等奖", "综述负责人", "乡村振兴"], link: "", credential: "", type: "学术竞赛", level: "市级", featured: true },
+    { title: "校园图书馆空间功能与老年群体数字阅读行为研究", platform: "《社区文化》2025年10月增刊", date: "2025.04", description: "参与「2025年蓝皮书编写计划」，完成中英文文献检索与综述写作，负责数据采集与质性分析，运用半结构化访谈与内容分析法对老年阅读障碍进行编码梳理。成果发表于《社区文化》增刊，为课题组核心执笔人之一。", image: "", tags: ["学术发表", "蓝皮书", "质性研究"], link: "", credential: "", type: "学术发表", level: "校级", featured: true },
+    { title: "去中心化时代文科生的出路", platform: "公众号「Jason 傑」", date: "2025.08", description: "主笔原创文章，3,199阅读 · 25评论 · 154赞 · 244在看。探讨文科生在技术变革中的定位与发展路径。", image: "", tags: ["3K+阅读", "主笔"], link: "", credential: "", type: "公众号写作", level: "其他", featured: true },
+    { title: "中欧绿色转型中的合作与博弈 · 研究报告", platform: "北京语言大学第二届外交训练营 · 优秀课题", date: "2025.05", description: "独立主持课题，完成文献检索、政策文本分析与比较研究框架搭建，运用话语分析法对中欧气候政策声明进行文本比对与议题框架提取，撰写研究报告1.5万字。获评「优秀课题」（20项参选课题中排名前5），个人获评「优秀营员」。", image: "", tags: ["优秀课题", "独立主持", "1.5万字"], link: "", credential: "", type: "学术研究", level: "校级", featured: true },
+    { title: "女书绝唱：永州田野调查手记", platform: "北京语言大学2025寒假社会实践 · 校级二等奖", date: "2025.03", description: "承担全部采访方案设计、田野调查执行与访谈资料整理，完成深度访谈12人次，采集方言语音样本30余条。运用NVivo进行三级编码，提炼女书传承中的性别话语与地方性知识保护机制。成果获评校级二等奖（106支队伍中排名第5），研究报告被学校收录为优秀实践案例。", image: "", tags: ["校级二等奖", "田野调查", "NVivo编码"], link: "", credential: "", type: "田野调查", level: "校级", featured: true },
+    { title: "新媒体技术赋能中国传统文化国际传播的创新模式及效应研究", platform: "北语第二届「中文国际传播」论坛 · 本科生论坛三等奖", date: "2025", description: "合作研究论文，探讨新媒体技术在中国传统文化国际传播中的创新应用与传播效应。", image: "", tags: ["论坛三等奖", "国际传播"], link: "", credential: "", type: "学术发表", level: "校级", featured: true },
+    { title: "对话文具店老板", platform: "解放日报社「原点original」深度报道栏目", date: "2025.04 — 2025.06", description: "实习期间完成的非虚构写作作品，基于实地采访的特稿写作。", image: "", tags: ["非虚构写作", "实习成果"], link: "", credential: "", type: "深度报道", level: "其他", featured: true },
+    { title: "《宝贝鱼环游颐和园》· AI多语种国际传播作品", platform: "北京语言大学「AI+」多语种传播能力大赛 · 校级三等奖", date: "2025.06", description: "作为影像负责人，运用AI技术创作多语种国际传播作品，探索AI赋能跨文化传播的新路径。", image: "", tags: ["校级三等奖", "AI创作", "影像负责人"], link: "", credential: "", type: "竞赛成果", level: "校级", featured: true },
+    { title: "FloraFlow 工作流应用", platform: "全国大学生广告艺术大赛（大广赛）", date: "2026.06", description: "2026年6月参与大广赛时独立设计的工作流应用原型。访问地址：http://47.93.228.17/，用户名：<strong style='color:var(--blue)'>Sam</strong>，密码：<strong style='color:var(--blue)'>FloraFlow@2026</strong>。", image: "", tags: ["应用设计", "大广赛"], link: "http://47.93.228.17/", credential: "", type: "应用设计", level: "其他", featured: true }
+  ],
+  wechatOfficial: {
+    name: "Jason 傑",
+    description: "与同学合作的公众号，记录思考、分享见解。主笔产出1篇4.5W+准爆款、2篇2K+阅读文章，涵盖教育观察、社会评论与个人成长。",
+    qrcode: "assets/uploads/wechat-qrcode.jpg",
+    articles: [
+      { title: "综测又捅了大学生一刀（45,144阅读 · 1,046赞）", link: "" },
+      { title: "去中心化时代文科生的出路（3,199阅读 · 154赞）", link: "" },
+      { title: "大学的自由为什么让我们更不自由（1,904阅读 · 132赞）", link: "" }
+    ]
+  },
+  skills: ["深度报道与非虚构写作", "新媒体运营", "学术研究与文献综述", "量化分析（SPSS）", "数据可视化", "视频拍摄与剪辑（剪映专业版）", "摄影与视觉设计", "舆情分析", "网络数据抓取（Opencode、Media Crawler、Playwright）", "Vibe coding", "主题活动策划与执行", "田野调查（访谈采访）", "社交媒体运营", "结构化表达与输出", "人民网舆情分析师（在读·初级）"],
+  languages: [
+    { name: "人民网舆情分析师", level: "初级（在读）", description: "通过人民网舆情研究院认证培训，系统掌握舆情监测平台操作、数据采集与分析方法论，具备舆情报告撰写与危机研判能力" },
+    { name: "英语", level: "CET-4 575分", description: "具备良好的英文文献阅读与学术资料检索能力，可辅助外文哲学文本与学术前沿内容的整理、编译与二次处理" }
+  ],
+  contact: { wechat: "13926929230", phone: "13926929230", email: "3587378140@qq.com", emailGmail: "HammerWu0609@gmail.com", emailSchool: "202411580872@stu.blcu.edu.cn", github: "", linkedin: "", wechatOfficialLink: "" }
+};
+
+async function loadData() {
+  try {
+    const response = await fetch('./data.json');
+    if (!response.ok) throw new Error('Failed to load data.json');
+    const data = await response.json();
+    renderPage(data);
+  } catch (error) {
+    console.warn('无法加载 data.json，使用默认数据:', error.message);
+    renderPage(defaultData);
+  }
+}
+
+function renderPage(data) {
+  const { ui, profile, education, internships, researchProjects, volunteerWork, awards, publications, wechatOfficial, skills, languages, contact } = data;
+
+  document.title = `${profile.name || '吴晗漠'} ${profile.nameEn || 'Hammer Wu'} - 个人作品集`;
+
+  // UI config
+  if (ui) {
+    if (ui.nav && ui.nav.length > 0) {
+      const navLinks = document.getElementById('nav-links');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (navLinks) navLinks.innerHTML = ui.nav.map(item => `<li><a href="${item.href}">${item.label}</a></li>`).join('');
+      if (mobileMenu) {
+        mobileMenu.innerHTML = ui.nav.map(item => `<a href="${item.href}">${item.label}</a>`).join('');
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        });
+      }
+    }
+    if (ui.sections) {
+      const sectionSymbols = {
+        experience: '◈',
+        wechat: '✉',
+        volunteerWork: '◉',
+        awards: '✦',
+        portfolio: '⟡',
+        skills: '◆',
+        contact: '❖'
+      };
+      for (const [key, cfg] of Object.entries(ui.sections)) {
+        const labelEl = document.getElementById(`${key}-label`);
+        const titleEl = document.getElementById(`${key}-title`);
+        const subtitleEl = document.getElementById(`${key}-subtitle`);
+        if (labelEl && cfg.label) labelEl.textContent = cfg.label;
+        if (titleEl && cfg.title) {
+          const symbol = sectionSymbols[key] || '';
+          const color = key === 'awards' || key === 'skills' ? 'var(--purple)' : 'var(--blue)';
+          titleEl.innerHTML = `<span class="section-symbol" style="color:${color}">${symbol}</span>${cfg.title}`;
+        }
+        if (subtitleEl && cfg.subtitle) subtitleEl.textContent = cfg.subtitle;
+      }
+    }
+    if (ui.buttons) {
+      const portfolioBtn = document.getElementById('hero-portfolio-btn');
+      const resumeBtn = document.getElementById('hero-resume-btn');
+      const contactResumeBtn = document.getElementById('contact-resume-btn');
+      const contactWechatBtn = document.getElementById('contact-wechat-btn');
+      if (portfolioBtn) {
+        portfolioBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/></svg> ${ui.buttons.browsePortfolio || '查看作品列表'}`;
+        if (profile.portfolioLink) portfolioBtn.href = profile.portfolioLink;
+      }
+      if (resumeBtn) resumeBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg> ${ui.buttons.downloadResume || '下载简历'}`;
+      if (contactResumeBtn) contactResumeBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg> ${ui.buttons.downloadFullResume || '下载完整简历'}`;
+      if (contactWechatBtn) {
+        contactWechatBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> ${ui.buttons.followWechat || '关注公众号'}`;
+        contactWechatBtn.addEventListener('click', e => {
+          e.preventDefault();
+          const target = document.querySelector('#wechat');
+          if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+        });
+      }
+    }
+  }
+
+  // Hero
+  const heroName = document.getElementById('hero-name');
+  if (heroName) heroName.innerHTML = `<span style="color:var(--blue);margin-right:8px;font-size:0.7em;vertical-align:middle;">✦</span>${profile.name || defaultData.profile.name}`;
+  const heroNameEn = document.getElementById('hero-name-en');
+  if (heroNameEn) heroNameEn.textContent = profile.nameEn || defaultData.profile.nameEn;
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) heroTitle.textContent = profile.title || defaultData.profile.title;
+  const heroBio = document.getElementById('hero-bio');
+  if (heroBio) heroBio.textContent = (profile.bio || defaultData.profile.bio).split('\n')[0];
+  const navLogo = document.getElementById('nav-logo');
+  if (navLogo) navLogo.innerHTML = `${profile.name || '吴晗漠'} <span>/</span> ${(profile.nameEn || 'Hammer').split(' ')[0]}`;
+  const avatarContainer = document.getElementById('hero-avatar-container');
+  if (avatarContainer && profile.avatar) {
+    const placeholder = avatarContainer.querySelector('.hero-avatar-placeholder');
+    if (placeholder) {
+      placeholder.outerHTML = `<img src="${profile.avatar}" alt="${profile.name}" class="hero-avatar" id="hero-avatar">`;
+    }
+  }
+  const heroResumeBtn = document.getElementById('hero-resume-btn');
+  if (heroResumeBtn && profile.resumePath) heroResumeBtn.href = profile.resumePath;
+  const contactResumeBtn = document.getElementById('contact-resume-btn');
+  if (contactResumeBtn && profile.resumePath) contactResumeBtn.href = profile.resumePath;
+  const heroMeta = document.getElementById('hero-meta');
+  if (heroMeta && education) {
+    heroMeta.innerHTML = `<span class="hero-meta-tag">BLCU · 新闻学（国际传播实验班）</span><span class="hero-meta-tag">GPA ${education.gpa || '3.6/4.0'}</span><span class="hero-meta-tag">${education.rank || '前10%'}</span>`;
+  }
+
+  // Education
+  const eduSchool = document.getElementById('edu-school');
+  if (eduSchool) eduSchool.textContent = education.school || defaultData.education.school;
+  const eduMajor = document.getElementById('edu-major');
+  if (eduMajor) eduMajor.textContent = `${education.major || ''} · ${education.degree || ''}`;
+  const eduBadge = document.getElementById('edu-badge');
+  if (eduBadge) eduBadge.textContent = `GPA ${education.gpa || ''} · ${education.rank || ''}`;
+  const eduDetail = document.getElementById('edu-detail');
+  if (eduDetail) eduDetail.innerHTML = `<strong>主修课程：</strong>${education.courses || ''}<br><strong>预计毕业：</strong>${education.graduation || ''}`;
+
+  // Internships timeline
+  const timeline = document.getElementById('internships-timeline');
+  if (timeline && internships && internships.length > 0) {
+    timeline.innerHTML = internships.map(item => `
+      <div class="timeline-item ${item.current ? 'current' : ''}">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header"><span class="timeline-title">${item.company}</span><span class="timeline-period">${item.period}</span></div>
+        <div class="timeline-subtitle">${item.role}</div>
+        <div class="timeline-description">${item.description}</div>
+        ${item.credential && item.credential.trim() ? `<a href="${item.credential}" target="_blank" rel="noopener noreferrer" class="btn btn-credential" style="margin-top:10px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> 凭证</a>` : ''}
+      </div>`).join('');
+  }
+
+  // Research projects timeline
+  const researchTimeline = document.getElementById('research-timeline');
+  if (researchTimeline && researchProjects && researchProjects.length > 0) {
+    researchTimeline.innerHTML = researchProjects.map(item => `
+      <div class="timeline-item ${item.current ? 'current' : ''}">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header"><span class="timeline-title">${item.company}</span><span class="timeline-period">${item.period}</span></div>
+        <div class="timeline-subtitle">${item.role}</div>
+        <div class="timeline-description">${item.description}</div>
+        ${item.credential && item.credential.trim() ? `<a href="${item.credential}" target="_blank" rel="noopener noreferrer" class="btn btn-credential" style="margin-top:10px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> 凭证</a>` : ''}
+      </div>`).join('');
+  }
+
+  // WeChat
+  const wechatName = document.getElementById('wechat-name');
+  if (wechatName) wechatName.textContent = wechatOfficial.name || defaultData.wechatOfficial.name;
+  const wechatDesc = document.getElementById('wechat-desc');
+  if (wechatDesc) wechatDesc.textContent = wechatOfficial.description || defaultData.wechatOfficial.description;
+  const qrcodeContainer = document.getElementById('wechat-qrcode-container');
+  if (qrcodeContainer && wechatOfficial.qrcode) qrcodeContainer.outerHTML = `<img src="${wechatOfficial.qrcode}" alt="公众号二维码" class="wechat-qrcode" id="wechat-qrcode">`;
+  const wechatArticles = document.getElementById('wechat-articles');
+  if (wechatArticles && wechatOfficial.articles && wechatOfficial.articles.length > 0) {
+    const validArticles = wechatOfficial.articles.filter(a => a.title && a.title.trim());
+    if (validArticles.length > 0) {
+      wechatArticles.innerHTML = validArticles.map(article => `
+        <a href="${article.link || '#'}" ${article.link ? 'target="_blank" rel="noopener noreferrer"' : ''} class="wechat-article-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/></svg>
+          ${article.title}
+        </a>`).join('');
+    }
+  }
+
+  // Volunteer work timeline
+  const volunteerTimeline = document.getElementById('volunteer-timeline');
+  if (volunteerTimeline && volunteerWork && volunteerWork.length > 0) {
+    volunteerTimeline.innerHTML = volunteerWork.map(item => `
+      <div class="timeline-item ${item.current ? 'current' : ''}">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header"><span class="timeline-title">${item.organization}</span><span class="timeline-period">${item.period}</span></div>
+        <div class="timeline-subtitle">${item.role}</div>
+        <div class="timeline-description">${item.description}</div>
+        ${item.credential && item.credential.trim() ? `<a href="${item.credential}" target="_blank" rel="noopener noreferrer" class="btn btn-credential" style="margin-top:10px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> 凭证</a>` : ''}
+      </div>`).join('');
+  } else if (volunteerTimeline) {
+    volunteerTimeline.innerHTML = '<p style="color: var(--text-muted); font-size: 14px;">暂无记录</p>';
+  }
+
+  // Awards
+  const awardsGrid = document.getElementById('awards-grid');
+  if (awardsGrid && awards && awards.length > 0) {
+    awardsGrid.innerHTML = awards.map(award => {
+      let badgeClass;
+      if (award.level === '国家级' || award.level === '市级') badgeClass = 'national';
+      else if (award.level === '其他') badgeClass = 'other';
+      else badgeClass = 'school';
+      const hasCredential = award.credential && award.credential.trim();
+      return `<div class="award-item"><span class="award-level-badge ${badgeClass}">${award.level}</span><div class="award-name">${award.name}</div><div class="award-meta"><span>${award.role}</span> · ${award.date}</div>${hasCredential ? `<a href="${award.credential}" target="_blank" rel="noopener noreferrer" class="btn btn-credential" style="margin-top:10px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> 凭证</a>` : ''}</div>`;
+    }).join('');
+  }
+
+  // Portfolio
+  const portfolioList = document.getElementById('portfolio-list');
+  if (portfolioList && publications && publications.length > 0) {
+    renderPortfolioItems(publications);
+    initPortfolioFilters();
+  }
+
+  // Skills
+  const skillsCloud = document.getElementById('skills-cloud');
+  if (skillsCloud && skills && skills.length > 0) skillsCloud.innerHTML = skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
+  const languagesList = document.getElementById('languages-list');
+  if (languagesList && languages && languages.length > 0) {
+    languagesList.innerHTML = languages.map(lang => `
+      <div class="lang-item"><div class="lang-name">${lang.name}</div><div class="lang-level">${lang.level}</div><div class="lang-desc">${lang.description}</div></div>`).join('');
+  }
+
+  // Contact
+  const contactGrid = document.getElementById('contact-grid');
+  if (contactGrid && contact) {
+    const cards = [];
+    if (contact.wechat) cards.push(`<div class="contact-card"><p class="contact-label">微信</p><p class="contact-value" style="color:var(--blue);">${contact.wechat}</p><p class="contact-note">可搜索手机号添加</p></div>`);
+    if (contact.phone) cards.push(`<div class="contact-card"><p class="contact-label">手机号</p><p class="contact-value"><a href="tel:${contact.phone}">${contact.phone}</a></p></div>`);
+    if (contact.email) cards.push(`<div class="contact-card"><p class="contact-label">QQ 邮箱</p><p class="contact-value"><a href="mailto:${contact.email}">${contact.email}</a></p></div>`);
+    if (contact.emailGmail) cards.push(`<div class="contact-card"><p class="contact-label">Gmail</p><p class="contact-value"><a href="mailto:${contact.emailGmail}">${contact.emailGmail}</a></p></div>`);
+    if (contact.emailSchool) cards.push(`<div class="contact-card"><p class="contact-label">学校邮箱</p><p class="contact-value"><a href="mailto:${contact.emailSchool}">${contact.emailSchool}</a></p><p class="contact-note">北京语言大学官方邮箱</p></div>`);
+    if (contact.github) cards.push(`<div class="contact-card"><p class="contact-label">GitHub</p><p class="contact-value"><a href="${contact.github}" target="_blank" rel="noopener noreferrer">${contact.github}</a></p></div>`);
+    if (contact.linkedin) cards.push(`<div class="contact-card"><p class="contact-label">LinkedIn</p><p class="contact-value"><a href="${contact.linkedin}" target="_blank" rel="noopener noreferrer">${contact.linkedin}</a></p></div>`);
+    if (contact.wechatOfficialLink) cards.push(`<div class="contact-card"><p class="contact-label">公众号主页</p><p class="contact-value"><a href="${contact.wechatOfficialLink}" target="_blank" rel="noopener noreferrer">${wechatOfficial.name || '公众号'}</a></p></div>`);
+    contactGrid.innerHTML = cards.join('');
+  }
+
+  // Footer
+  const footerText = document.getElementById('footer-text');
+  if (footerText) footerText.textContent = `${new Date().getFullYear()} ${profile.name || '吴晗漠'} ${profile.nameEn || 'Hammer Wu'}. All rights reserved.`;
+
+  // 交错入场初始化：设置子元素初始状态
+  document.querySelectorAll('.timeline-item, .award-item, .contact-card').forEach(item => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(16px)';
+    item.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+}
+
+function renderPortfolioItems(publications, filter = 'all') {
+  const portfolioList = document.getElementById('portfolio-list');
+  if (!portfolioList) return;
+  const filtered = filter === 'all' ? publications : publications.filter(p => p.level === filter || p.type === filter);
+  const sorted = [...filtered].sort((a, b) => {
+    if (a.featured === b.featured) return 0;
+    return a.featured ? -1 : 1;
+  });
+  portfolioList.innerHTML = sorted.map(pub => {
+    const hasImage = pub.image && pub.image.trim();
+    const hasLink = pub.link && pub.link.trim();
+    const hasCredential = pub.credential && pub.credential.trim();
+    return `
+      <article class="portfolio-item ${hasImage ? 'has-image' : ''} ${hasLink ? 'has-link' : ''}" data-type="${pub.type || ''}" data-level="${pub.level || ''}" ${hasLink ? `onclick="window.open('${pub.link}', '_blank', 'noopener,noreferrer')"` : ''}>
+        <div class="portfolio-body">
+          ${hasImage ? `<div class="portfolio-image-wrapper"><img src="${pub.image}" alt="${pub.title}" class="portfolio-image"></div>` : ''}
+          <div class="portfolio-content">
+            <div class="portfolio-header"><h3 class="portfolio-title">${pub.title}</h3><span class="portfolio-date">${pub.date}</span></div>
+            <p class="portfolio-platform">${pub.platform}</p>
+            <p class="portfolio-description">${pub.description}</p>
+            <div class="portfolio-footer">
+              <div class="portfolio-tags">${pub.level ? `<span class="portfolio-tag">${pub.level}</span>` : ''}${(pub.tags || []).map(tag => `<span class="portfolio-tag">${tag}</span>`).join('')}</div>
+              <div class="portfolio-actions">
+                ${hasLink ? `<span class="portfolio-link-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg> 原文</span>` : ''}
+                ${hasCredential ? `<a href="${pub.credential}" target="_blank" rel="noopener noreferrer" class="btn btn-credential" onclick="event.stopPropagation();"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> 凭证</a>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+function initPortfolioFilters() {
+  const filters = document.querySelectorAll('.portfolio-filter');
+  filters.forEach(filter => {
+    filter.addEventListener('click', () => {
+      filters.forEach(f => f.classList.remove('active'));
+      filter.classList.add('active');
+      const type = filter.dataset.filter;
+      fetch('./data.json').then(r => r.json()).then(data => {
+        const pubs = type === 'all' ? data.publications : data.publications.filter(p => p.level === type || p.type === type);
+        renderPortfolioItems(pubs);
+      }).catch(() => {
+        const pubs = type === 'all' ? defaultData.publications : defaultData.publications.filter(p => p.level === type || p.type === type);
+        renderPortfolioItems(pubs);
+      });
+    });
+  });
+}
+
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+
+// 视差滚动：不同区块以不同速度移动
+const parallaxSections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  parallaxSections.forEach((section, i) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const speed = (i % 2 === 0) ? 0.03 : -0.02;
+      const offset = (scrollY - section.offsetTop) * speed;
+      section.style.transform = `translateY(${offset}px)`;
+    }
+  });
+});
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('active');
+  document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+});
+
+document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = entry.target;
+      target.classList.add('visible');
+      // 时间线、获奖卡片、联系卡片交错入场
+      if (target.matches('.timeline, .awards-grid, .contact-grid')) {
+        const items = target.querySelectorAll('.timeline-item, .award-item, .contact-card');
+        items.forEach((item, i) => {
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+          }, i * 120);
+        });
+      }
+      revealObserver.unobserve(target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => { if (window.scrollY >= section.offsetTop - 120) current = section.getAttribute('id'); });
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+
+  // 3D 卡片倾斜：鼠标跟随的透视效果
+  document.querySelectorAll('.portfolio-item').forEach(card => {
+    const body = card.querySelector('.portfolio-body');
+    if (!body) return;
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
+      body.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      body.style.transition = 'transform 0.1s ease';
+    });
+    card.addEventListener('mouseleave', () => {
+      body.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+      body.style.transition = 'transform 0.5s ease';
+    });
+  });
+
+  // 导航点击平滑滚动：补偿固定导航栏高度
+  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const offset = 80;
+          window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  // ===== 角色设定：增量美化初始化 =====
+  initAbstractLines();
+  initMagneticButtons();
+  initCustomCursor();
+  initParallaxBackground();
+  initAvatarParticles();
+});
+
+// ============================================================
+// ===== 角色设定：增量美化函数 =====
+// ============================================================
+
+/* 1. 抽象直线背景（增强版：更多交错细线，科技感） */
+function initAbstractLines() {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'bg-lines';
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;pointer-events:none;';
+  document.body.insertBefore(canvas, document.body.firstChild);
+
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  const lines = [];
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    generateLines();
+  }
+
+  function generateLines() {
+    lines.length = 0;
+    // 更多线条，均匀分布
+    const count = Math.min(100, Math.floor((width * height) / 12000));
+    for (let i = 0; i < count; i++) {
+      const len = Math.random() * 350 + 200;
+      // 均匀角度分布：将圆周分成 count 等份，每份随机偏移
+      const baseAngle = (i / count) * Math.PI * 2;
+      const angle = baseAngle + (Math.random() - 0.5) * 0.3;
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      const colorBase = Math.random() > 0.5 ? [59,130,246] : [168,85,247];
+      const alpha = Math.random() * 0.04 + 0.03;  // 0.03-0.07，更轻微可见
+      const speed = Math.random() * 0.03 + 0.01;
+      lines.push({
+        x, y, len, angle,
+        r: colorBase[0], g: colorBase[1], b: colorBase[2],
+        alpha, speed,
+        dx: Math.cos(angle) * speed,
+        dy: Math.sin(angle) * speed,
+        lineWidth: Math.random() * 0.6 + 0.6  // 0.6-1.2px
+      });
+    }
+  }
+
+  let frameCount = 0;
+  function draw() {
+    frameCount++;
+    if (frameCount % 2 === 0) {
+      ctx.clearRect(0, 0, width, height);
+
+      // 绘制线条
+      lines.forEach(line => {
+        const x2 = line.x + Math.cos(line.angle) * line.len;
+        const y2 = line.y + Math.sin(line.angle) * line.len;
+        ctx.beginPath();
+        ctx.moveTo(line.x, line.y);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = `rgba(${line.r},${line.g},${line.b},${line.alpha})`;
+        ctx.lineWidth = line.lineWidth;
+        ctx.stroke();
+
+        line.x += line.dx;
+        line.y += line.dy;
+
+        if (line.x < -line.len) line.x = width + line.len;
+        if (line.x > width + line.len) line.x = -line.len;
+        if (line.y < -line.len) line.y = height + line.len;
+        if (line.y > height + line.len) line.y = -line.len;
+      });
+
+      // 微弱连线效果：当线条端点接近时，绘制极淡的连接线
+      const connectDist = 120;
+      for (let i = 0; i < lines.length; i += 3) { // 每隔3条线检查一次，减少计算
+        const l1 = lines[i];
+        const x1e = l1.x + Math.cos(l1.angle) * l1.len;
+        const y1e = l1.y + Math.sin(l1.angle) * l1.len;
+        for (let j = i + 1; j < lines.length; j += 5) {
+          const l2 = lines[j];
+          const x2e = l2.x + Math.cos(l2.angle) * l2.len;
+          const y2e = l2.y + Math.sin(l2.angle) * l2.len;
+          const dx = x1e - x2e;
+          const dy = y1e - y2e;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < connectDist) {
+            const alpha = (1 - dist / connectDist) * 0.04 + 0.03;  // 0.03-0.07，可见连线
+            ctx.beginPath();
+            ctx.moveTo(x1e, y1e);
+            ctx.lineTo(x2e, y2e);
+            ctx.strokeStyle = `rgba(168,85,247,${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
+/* 2. 磁吸按钮 */
+function initMagneticButtons() {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+  const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-credential');
+  buttons.forEach(btn => {
+    btn.classList.add('btn-magnetic');
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const distance = Math.sqrt(x*x + y*y);
+      const maxDist = 80;
+      if (distance < maxDist) {
+        const force = (maxDist - distance) / maxDist;
+        btn.style.transform = `translate(${x * force * 0.3}px, ${y * force * 0.3}px)`;
+      }
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+}
+
+/* 3. 自定义光标 */
+function initCustomCursor() {
+  if (window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768) return;
+  const cursor = document.createElement('div');
+  cursor.className = 'custom-cursor';
+  document.body.appendChild(cursor);
+  document.body.style.cursor = 'none';
+
+  let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animate() {
+    cursorX += (mouseX - cursorX) * 0.15;
+    cursorY += (mouseY - cursorY) * 0.15;
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  const clickables = 'a, button, .portfolio-item, .nav-links a, .hamburger, .portfolio-filter, .back-to-top, .wechat-article-item, .award-item, .skill-tag, .lang-item, .contact-card, .edu-card, .wechat-section';
+  document.querySelectorAll(clickables).forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  const observer = new MutationObserver(() => {
+    document.querySelectorAll(clickables).forEach(el => {
+      if (!el.dataset.cursorBound) {
+        el.dataset.cursorBound = '1';
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      }
+    });
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+/* 4. 背景视差 */
+function initParallaxBackground() {
+  const canvas = document.getElementById('bg-lines');
+  if (!canvas) return;
+  let scrollY = 0;
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+    canvas.style.transform = `translateY(${scrollY * 0.3}px)`;
+  }, { passive: true });
+}
+
+/* 5. 头像周围动效粒子（hover 交互：从边缘向外扩散，移开收回） */
+function initAvatarParticles() {
+  const container = document.getElementById('avatar-particles');
+  const wrapper = document.getElementById('hero-avatar-container');
+  if (!container || !wrapper) return;
+
+  const isMobile = window.innerWidth < 768;
+  const RADIUS = 90; // 头像半径（180/2）
+
+  // 12 个粒子：随机角度、随机距离、随机大小
+  const configs = [
+    { type: 'circle',  color: 'purple', angle: 5,   dist: 52,  size: 5 },
+    { type: 'diamond', color: 'blue',   angle: 38,  dist: 40,  size: 7 },
+    { type: 'circle',  color: 'purple', angle: 72,  dist: 65,  size: 6 },
+    { type: 'diamond', color: 'purple', angle: 105, dist: 48,  size: 10 },
+    { type: 'circle',  color: 'blue',   angle: 140, dist: 58,  size: 7 },
+    { type: 'circle',  color: 'purple', angle: 175, dist: 35,  size: 15 },
+    { type: 'diamond', color: 'blue',   angle: 210, dist: 55,  size: 6 },
+    { type: 'circle',  color: 'purple', angle: 245, dist: 42,  size: 8 },
+    { type: 'diamond', color: 'purple', angle: 280, dist: 62,  size: 5 },
+    { type: 'circle',  color: 'blue',   angle: 315, dist: 45,  size: 12 },
+    { type: 'circle',  color: 'purple', angle: 345, dist: 50,  size: 8 },
+    { type: 'diamond', color: 'blue',   angle: 22,  dist: 68,  size: 16 },
+  ];
+
+  // 预创建粒子，初始在边缘位置
+  const particleEls = [];
+  configs.forEach((cfg, i) => {
+    const el = document.createElement('div');
+    el.className = `avatar-particle ${cfg.type} ${cfg.color}`;
+    const rad = (cfg.angle * Math.PI) / 180;
+    const sx = Math.cos(rad) * RADIUS;
+    const sy = Math.sin(rad) * RADIUS;
+    const tx = Math.cos(rad) * (RADIUS + cfg.dist);
+    const ty = Math.sin(rad) * (RADIUS + cfg.dist);
+    el.style.setProperty('--size', cfg.size + 'px');
+    el.style.setProperty('--sx', sx + 'px');
+    el.style.setProperty('--sy', sy + 'px');
+    el.style.setProperty('--tx', tx + 'px');
+    el.style.setProperty('--ty', ty + 'px');
+    el.style.setProperty('--dur', (3 + Math.random() * 2) + 's');
+    el.style.setProperty('--amp', (1 + Math.random() * 2) + 'px');
+    el.style.setProperty('--float-delay', (Math.random() * 1.5) + 's');
+    el.style.animationDelay = (i * 0.06) + 's';
+    container.appendChild(el);
+    particleEls.push(el);
+  });
+
+  function expand() {
+    particleEls.forEach(el => {
+      el.classList.remove('retract');
+      el.classList.add('pop');
+    });
+  }
+
+  function retract() {
+    particleEls.forEach(el => {
+      el.classList.remove('pop');
+      el.classList.add('retract');
+    });
+  }
+
+  if (isMobile) {
+    // 移动端：头像进入视口时扩散，离开时收回
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) expand();
+        else retract();
+      });
+    }, { threshold: 0.3 });
+    observer.observe(wrapper);
+  } else {
+    // 电脑端：hover 触发
+    wrapper.addEventListener('mouseenter', expand);
+    wrapper.addEventListener('mouseleave', retract);
+  }
+}
+</script>
+</body>
+</html>

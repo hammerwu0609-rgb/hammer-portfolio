@@ -1,0 +1,62 @@
+<!-- FILE: admin/index.html -->
+<!--
+  Decap CMS (原 Netlify CMS) 管理后台入口文件
+  ================================================================
+  【这是什么？】
+  这个文件是网站后台管理界面的入口。当你部署网站后，
+  访问 "https://你的域名.netlify.app/admin" 就会加载这个页面。
+
+  【它做什么？】
+  1. 加载 Decap CMS 官方脚本
+  2. 自动读取同目录下的 config.yml 配置文件
+  3. 根据 config.yml 中定义的字段，生成可视化编辑界面
+  4. 你可以像填表单一样修改网站内容，保存后自动更新
+
+  【技术原理】
+  - Decap CMS 是一个基于 Git 的内容管理系统
+  - 它通过 Git Gateway 直接读写你的 GitHub 仓库
+  - 所有修改最终以 Git commit 的形式保存到 data.json
+  - Netlify 检测到仓库变化后自动重新部署网站
+
+  【注意事项】
+  - 不要删除或修改 <script> 标签
+  - config.yml 必须与此文件在同一目录下
+  - 首次使用需要先开启 Netlify Identity 和 Git Gateway
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网站后台管理</title>
+
+  <!--
+    Decap CMS 官方脚本（v3.x 最新稳定版）
+    来源：unpkg CDN（官方推荐）
+    这个脚本加载后，会自动：
+    1. 读取 ./config.yml 配置
+    2. 渲染管理界面
+    3. 处理身份验证（Netlify Identity）
+    4. 内容编辑和保存
+  -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!--
+    如果你需要自定义 CMS 的样式或行为，可以在此添加自定义脚本。
+    例如：自定义预览样式、添加额外功能等。
+    对于基础使用，不需要添加任何内容。
+  -->
+</head>
+<body>
+  <!--
+    Decap CMS 会自动在 <body> 中挂载管理界面，
+    不需要手动添加任何 HTML 元素。
+
+    页面加载完成后，你将看到：
+    1. 登录界面（Login with Netlify Identity）
+    2. 登录后的内容编辑面板
+    3. 左侧导航栏（作品集内容 > 个人资料与作品）
+    4. 右侧表单编辑区（所有你在 config.yml 中定义的字段）
+  -->
+</body>
+</html>
