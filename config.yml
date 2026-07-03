@@ -10,7 +10,7 @@ media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
 # 站点地址（部署后替换为实际地址）
-site_url: "https://你的站点地址.netlify.app"
+site_url: "https://hammerwu-portfolio.netlify.app"
 
 publish_mode: simple
 
@@ -334,6 +334,7 @@ collections:
                   - { label: "田野调查", value: "田野调查" }
                   - { label: "深度报道", value: "深度报道" }
                   - { label: "公众号写作", value: "公众号写作" }
+                  - { label: "应用设计", value: "应用设计" }
                   - { label: "其他", value: "其他" }
 
               - label: "级别"

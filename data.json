@@ -361,6 +361,19 @@
       "type": "应用设计",
       "level": "其他",
       "featured": true
+    },
+    {
+      "title": "学术文献自动化综述技能 · sMonographs-Compiler V4.0",
+      "platform": "OpenCode AI Skill 开发",
+      "date": "2026",
+      "description": "基于 OpenCode 平台开发的超级技能工作流，支持专著深度学术史定位、同一作者跨著作综合、跨作者比较研究三种场景。Phase 1 逐书深度分析（3000-5000字/书），Phase 2 自适应生成跨著作综合报告，形成从单书阅读到多书综合的完整学术输出链。支持中英文文献，含自动化质量验证门。",
+      "image": "",
+      "tags": ["AI Skill", "学术工具", "OpenCode", "文献综述", "超级工作流"],
+      "link": "",
+      "credential": "",
+      "type": "应用设计",
+      "level": "其他",
+      "featured": true
     }
   ],
   "wechatOfficial": {
